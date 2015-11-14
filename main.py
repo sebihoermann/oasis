@@ -124,6 +124,7 @@ while True:
 		print("editor - pyEdit beta 1.0")
 		print("credits - tlgOS credits")
 		print("zoik - Zoik, your new best friend")
+		print("about - about your copy of tlgOS")
 							
 	if command == "calculator":
 		print("pyCalc v2.0")
@@ -199,3 +200,6 @@ while True:
 				sys.exit(1)
 		else:
 			zoik()
+			
+	if command == "about":
+		print("tlgOS Candy Cane pre-alpha 1.0 build 3 running on",os.uname())
