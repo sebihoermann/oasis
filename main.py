@@ -99,7 +99,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	print("Success! tlgOS is all set up!")
 	print("Reading data...")
 	name, age, password = read_data()
-	print("tlgOS Candy Cane pre-alpha 1.0 build 3 - type \"help\" for a list of commands")
+	print("tlgOS Candy Cane pre-alpha 1.1 build 1 - type \"help\" for a list of commands")
 	print("Welcome to tlgOS, {}!".format(name))
 else:
 	print("Reading data...")
@@ -107,7 +107,7 @@ else:
 	try_password = raw_input("Please enter the password for {}. ".format(name))
 	if try_password == password:
 		privacy_clear()
-		print("tlgOS Candy Cane pre-alpha 1.0 build 3 - type \"help\" for a list of commands")
+		print("tlgOS Candy Cane pre-alpha 1.1 build 1 - type \"help\" for a list of commands")
 	else:
 		print("Incorrect password")
 		sys.exit(1)
@@ -202,4 +202,4 @@ while True:
 			zoik()
 			
 	if command == "about":
-		print("tlgOS Candy Cane pre-alpha 1.0 build 3 running on",os.uname())
+		print("tlgOS Candy Cane pre-alpha 1.1 build 1 running on",os.uname())
