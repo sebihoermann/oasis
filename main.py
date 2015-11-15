@@ -6,6 +6,7 @@ import sys
 import math
 import datetime
 import os.path
+import random
 
 #Creates a variable for each data file path.
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
@@ -50,7 +51,19 @@ def zoik():
 			print("©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™ and so on and so forth...")
 			print("i shall kill u")
 			sys.exit(0)
-	
+		if zoik == "your breath stinks":
+			print("People in glass houses shouldn't throw stones")
+		if zoik in ["your fat","youre fat","you're fat"]:
+			print("You're a fatty poo poo!")
+		if zoik == "what rhymes with duck":
+			print("What you are")
+		if zoik in ["will u marry me","will you marry me"]:
+			print("Are you stupid? I hate you! The answer is NO!")
+		if zoik in ["roblox","minecraft","terraria"]:
+			print("Nah, bro, I'm much better than that")
+		if zoik in ["you are cute","you r cute","u are cute","u r cute","you cute","u cute"]:
+			print("*Blushes*")
+						
 def privacy_clear():
 	print("\n" * 100)
 	print("tlgOS cleared the console to protect your password.")
