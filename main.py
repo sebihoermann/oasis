@@ -7,6 +7,7 @@ import math
 import datetime
 import os.path
 import random
+import urllib2
 
 #Creates a variable for each data file path.
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
@@ -15,15 +16,17 @@ AGE_FILE = 'data/profile/age.txt'
 PARENTAL_CONTROLS_FILE = 'data/profile/parental_controls.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
 
+TARGET_URL = 'http://thelukeguy.github.io/tlgOS_update_check/'
+
 def read_data():
 	with open(NAME_FILE, "r") as nf:
 		name = ''.join(nf.readlines())
 	with open(AGE_FILE, "r") as af:
 		age = ''.join(af.readlines())
 	with open(PASSWORD_FILE, "r") as pf:
-		password = ''.join(pf.readlines())	
+		password = ''.join(pf.readlines())
 	return (name, age, password)
-	
+
 def zoik():
 	print("Tips for using Zoik:")
 	print("Limit words ex. instead of \"Zoik, what's 9+10\", say \"9+10\"")
@@ -63,15 +66,15 @@ def zoik():
 			print("Nah, bro, I'm much better than that")
 		if zoik in ["you are cute","you r cute","u are cute","u r cute","you cute","u cute"]:
 			print("*Blushes*")
-						
+
 def privacy_clear():
 	print("\n" * 100)
 	print("tlgOS cleared the console to protect your password.")
-	
+
 attempt_boot = raw_input("tlgOS is in its pre-alpha stage. Would you like to attempt to boot? (y/n) ")
 if attempt_boot == "n":
 	sys.exit(1)
-	
+
 if attempt_boot not in ["y","n"]:
 	print("Invalid answer")
 	sys.exit(1)
@@ -112,7 +115,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	print("Success! tlgOS is all set up!")
 	print("Reading data...")
 	name, age, password = read_data()
-	print("tlgOS Candy Cane pre-alpha 1.1 build 1 - type \"help\" for a list of commands")
+	print("tlgOS Candy Cane pre-alpha 1.1 build 2 - type \"help\" for a list of commands")
 	print("Welcome to tlgOS, {}!".format(name))
 else:
 	print("Reading data...")
@@ -120,12 +123,12 @@ else:
 	try_password = raw_input("Please enter the password for {}. ".format(name))
 	if try_password == password:
 		privacy_clear()
-		print("tlgOS Candy Cane pre-alpha 1.1 build 1 - type \"help\" for a list of commands")
+		print("tlgOS Candy Cane pre-alpha 1.1 build 2 - type \"help\" for a list of commands")
 	else:
 		print("Incorrect password")
 		sys.exit(1)
 	print('Welcome back, {}!'.format(name))
-	
+
 while True:
 	command = raw_input("> ")
 	if command == "help":
@@ -138,11 +141,12 @@ while True:
 		print("credits - tlgOS credits")
 		print("zoik - Zoik, your new best friend")
 		print("about - about your copy of tlgOS")
-							
+		print("update - checks for tlgOS updates")
+
 	if command == "calculator":
 		print("pyCalc v2.0")
 		try:
-			v1 = int(raw_input("Please enter the first value: "))	
+			v1 = int(raw_input("Please enter the first value: "))
 		except ValueError:
 			print("{} is not a number".format(v1))
 			sys.exit(1)
@@ -165,18 +169,18 @@ while True:
 		if operation == "/":
 			answer = int(v1/v2)
 		print("The answer to {} {} {} is {}".format(v1, operation, v2, answer))
-		
+
 	if command == "clear":
 		print("\n" * 100)
 		print("Console cleared!")
-		
+
 	if command == "quit":
 		print("Farewell until we meet again, {}!".format(name))
 		sys.exit(0)
-		
+
 	if command == "reset":
 		print("This method has been removed. To reset, type quit, then, type \"python reset.py\".")
-		
+
 	if command == "editor":
 		print("Note: pyEdit is still in beta. You CAN NOT:")
 		print("Open files")
@@ -188,14 +192,14 @@ while True:
 		tf = open(TEXT_FILE, 'w')
 		tf.write(text)
 		tf.close()
-		
+
 	if command == "credits":
 		print("Luke Chambers (TheLukeGuy) - creator of tlgOS project")
 		print("pyTools by Luke Chambers - programs used:")
 		print("pyCalc v2.0")
 		print("pyEdit beta 1.0")
 		print("my dad - helped me with making this when I needed it")
-		
+
 	if command == "zoik":
 		print("Reading data...")
 		pcf = open(PARENTAL_CONTROLS_FILE, 'r')
@@ -213,6 +217,15 @@ while True:
 				sys.exit(1)
 		else:
 			zoik()
-			
+
 	if command == "about":
-		print("tlgOS Candy Cane pre-alpha 1.1 build 1 running on",os.uname())
+		print("tlgOS Candy Cane pre-alpha 1.1 build 2 running on",os.uname())
+		print("Written in the Python programming language")
+		print("Coded in the Atom and TextWrangler text editors")
+
+	if command == "update":
+		current_version = "tlgOS Candy Cane pre-alpha 1.1 build 2"
+		for line in urllib2.urlopen(TARGET_URL):
+			version = line
+		print("The latest version of tlgOS is {}".format(version))
+		print("You are running {}".format(current_version))
