@@ -231,7 +231,7 @@ while True:
 		print("The latest version of tlgOS is {}".format(version))
 		print("You are running {}".format(current_version))
 
-	if commnd == "copyright":
+	if command == "copyright":
 		print("Licensed under the MIT license")
 		print("The MIT License (MIT)")
 
