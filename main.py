@@ -143,6 +143,7 @@ while True:
 		print("about - about your copy of tlgOS")
 		print("update - checks for tlgOS updates")
 		print("copyright - views copyright info")
+		print("web - pyWeb pre-alpha 1.0")
 
 	if command == "calculator":
 		print("pyCalc v2.0")
@@ -199,6 +200,7 @@ while True:
 		print("pyTools by Luke Chambers - programs used:")
 		print("pyCalc v2.0")
 		print("pyEdit beta 1.0")
+		print("pyWeb pre-alpha 1.0")
 		print("my dad - helped me with making this when I needed it")
 
 	if command == "zoik":
@@ -254,3 +256,9 @@ while True:
 		print("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,")
 		print("OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE")
 		print("SOFTWARE.")
+
+	if command == "web":
+		print("pyWeb only displays text on a web page at the moment")
+		USER_URL = raw_input("Please enter the URL of the page (http(s)://domain.topleveldomain(/page.html)): ")
+		for line in urllib2.urlopen(USER_URL):
+			print(line)
