@@ -95,6 +95,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	af = open(AGE_FILE, 'wt')
 	af.write(str(set_age))
 	af.close()
+	pcf = open(PARENTAL_CONTROLS_FILE, 'a').close()
 	if set_age < 18:
 		set_parental_controls = raw_input("Would you like to enable parental controls? (y/n) ")
 		if set_parental_controls == "y":
