@@ -265,6 +265,7 @@ while True:
 			print("To add music, locate to the files folder and place your music there.")
 			MUSIC_FILE = raw_input("What is the song saved as? ex. radioactive.mp3 ")
 			print("Use ^C to stop playing music")
+			print("Note: When you use ^C to stop, a message will appear. Ignore it! It's for different purposes!")
 			afplay.afplay("files/{}".format(MUSIC_FILE))
 
 	except KeyboardInterrupt:
