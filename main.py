@@ -238,7 +238,7 @@ while True:
 		print("Copyright (c) 2015 Luke Chambers")
 
 		print("Permission is hereby granted, free of charge, to any person obtaining a copy")
-		print("of this software and associated documentation files (the "Software"), to deal")
+		print("of this software and associated documentation files (the \"Software\"), to deal")
 		print("in the Software without restriction, including without limitation the rights")
 		print("to use, copy, modify, merge, publish, distribute, sublicense, and/or sell")
 		print("copies of the Software, and to permit persons to whom the Software is")
