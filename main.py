@@ -10,6 +10,7 @@ import random
 import urllib2
 import subprocess
 import afplay
+import webbrowser
 
 #Creates a variable for each data file path.
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
@@ -68,6 +69,9 @@ def zoik():
 			print("Nah, bro, I'm much better than that")
 		if zoik in ["you are cute","you r cute","u are cute","u r cute","you cute","u cute"]:
 			print("*Blushes*")
+		if zoik == "jeff the killer":
+			print("Just go to sleep...")
+			webbrowser.open_new('http://i.imgur.com/NaeILYu.jpg')
 
 def privacy_clear():
 	print("\n" * 100)
