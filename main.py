@@ -118,7 +118,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	print("Success! tlgOS is all set up!")
 	print("Reading data...")
 	name, age, password = read_data()
-	print("tlgOS Candy Cane pre-alpha 1.1 build 2 - type \"help\" for a list of commands")
+	print("tlgOS Candy Cane pre-alpha 1.1 build 3 - type \"help\" for a list of commands")
 	print("Welcome to tlgOS, {}!".format(name))
 else:
 	print("Reading data...")
@@ -126,7 +126,7 @@ else:
 	try_password = raw_input("Please enter the password for {}. ".format(name))
 	if try_password == password:
 		privacy_clear()
-		print("tlgOS Candy Cane pre-alpha 1.1 build 2 - type \"help\" for a list of commands")
+		print("tlgOS Candy Cane pre-alpha 1.1 build 3 - type \"help\" for a list of commands")
 	else:
 		print("Incorrect password")
 		sys.exit(1)
@@ -226,12 +226,12 @@ while True:
 				zoik()
 
 		if command == "about":
-			print("tlgOS Candy Cane pre-alpha 1.1 build 2 running on",os.uname())
+			print("tlgOS Candy Cane pre-alpha 1.1 build 3 running on",os.uname())
 			print("Written in the Python programming language")
 			print("Coded in the Atom and TextWrangler text editors")
 
 		if command == "update":
-			current_version = "tlgOS Candy Cane pre-alpha 1.1 build 2"
+			current_version = "tlgOS Candy Cane pre-alpha 1.1 build 3"
 			for line in urllib2.urlopen(TARGET_URL):
 				version = line
 			print("The latest version of tlgOS is {}".format(version))
