@@ -141,11 +141,11 @@ while True:
 		command = input("> ")
 		if command == "help":
 			print("Available commands:")
-			print("calculator - pyCalc v2.0")
+			print("calculator - a basic calculator")
 			print("clear - clears console")
 			print("quit - quits tlgOS")
 			print("reset - resets tlgOS")
-			print("editor - pyEdit beta 1.0")
+			print("editor - a work in progress text editor")
 			print("credits - tlgOS credits")
 			print("zoik - Zoik, your new best friend")
 			print("about - about your copy of tlgOS")
@@ -205,10 +205,6 @@ while True:
 
 		if command == "credits":
 			print("Luke Chambers (TheLukeGuy) - creator of tlgOS project")
-			print("pyTools by Luke Chambers - programs used:")
-			print("pyCalc v2.0")
-			print("pyEdit beta 1.0")
-			print("pyWeb pre-alpha 1.0")
 			print("my dad - helped me with making this when I needed it")
 
 		if command == "zoik":
@@ -269,9 +265,7 @@ while True:
 			print("To add music, locate to the files folder and place your music there.")
 			MUSIC_FILE = input("What is the song saved as? ex. radioactive.mp3 ")
 			print("Use ^C to stop playing music")
-			print("Note: When you use ^C to stop, a message will appear. Ignore it! It's for different purposes!")
 			afplay.afplay("files/{}".format(MUSIC_FILE))
 
 	except KeyboardInterrupt:
-		print("Please use \"quit\" to exit")
 		continue
