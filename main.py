@@ -11,6 +11,7 @@ import urllib.request, urllib.error, urllib.parse
 import subprocess
 import afplay
 import webbrowser
+from pyfiglet import Figlet
 
 #Creates a variable for each data file path.
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
@@ -77,15 +78,10 @@ def privacy_clear():
 	print("\n" * 100)
 	print("tlgOS cleared the console to protect your password.")
 
-attempt_boot = input("tlgOS is in its pre-alpha stage. Would you like to attempt to boot? (y/n) ")
-if attempt_boot == "n":
-	sys.exit(1)
-
-if attempt_boot not in ["y","n"]:
-	print("Invalid answer")
-	sys.exit(1)
+f = Figlet(font='slant')
 
 print("Attempting to boot tlgOS...")
+print(f.renderText("tlgOS Candy Cane 1.0"))
 if not os.path.isfile(FIRST_BOOT_FILE):
 	open(FIRST_BOOT_FILE, 'a').close()
 	print("Creating data... (You may be asked questions during this process.)")
@@ -122,7 +118,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	print("Success! tlgOS is all set up!")
 	print("Reading data...")
 	name, age, password = read_data()
-	print("tlgOS Candy Cane pre-alpha 1.1 build 3 - type \"help\" for a list of commands")
+	print("tlgOS Candy Cane 1.0 - type \"help\" for a list of commands")
 	print("Welcome to tlgOS, {}!".format(name))
 else:
 	print("Reading data...")
@@ -130,7 +126,7 @@ else:
 	try_password = input("Please enter the password for {}. ".format(name))
 	if try_password == password:
 		privacy_clear()
-		print("tlgOS Candy Cane pre-alpha 1.1 build 3 - type \"help\" for a list of commands")
+		print("tlgOS Candy Cane 1.0 - type \"help\" for a list of commands")
 	else:
 		print("Incorrect password")
 		sys.exit(1)
@@ -226,12 +222,12 @@ while True:
 				zoik()
 
 		if command == "about":
-			print("tlgOS Candy Cane pre-alpha 1.1 build 3 running on",os.uname())
+			print("tlgOS Candy Cane 1.0 running on",os.uname())
 			print("Written in the Python programming language")
 			print("Coded in the Atom and TextWrangler text editors")
 
 		if command == "update":
-			current_version = "tlgOS Candy Cane pre-alpha 1.1 build 3"
+			current_version = "tlgOS Candy Cane 1.0"
 			for line in urllib.request.urlopen(TARGET_URL):
 				version = line
 			print("The latest version of tlgOS is {}".format(version))
