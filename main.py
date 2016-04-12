@@ -38,8 +38,9 @@ def zoik():
 	print("Do not Capitialize ANYTHING!")
 	print("Enjoy Zoik!")
 	print("Hello, {}! What can I do for you?".format(name))
-	while True:
-		zoik = input("Type \"quit\" to quit Zoik > ")
+	zoikon = True
+	while zoikon == True:
+		zoik = input("zoik> ")
 		if zoik in ["hi","hello","sup","yo","wassup"]:
 			print("Hi, {}!".format(name))
 		if zoik in ["i hate you","hate you","hate","i hate u","hate u","you are dumb","you dumb","dumb","u r dumb","u dumb","you r dumb","u are dumb","you are stupid","you stupid","stupid","u r stupid","u stupid","you r stupid"]:
@@ -47,7 +48,7 @@ def zoik():
 		if zoik in ["9+10","9 + 10","9 plus 10"]:
 			print("To the world it is 21, but to a calculator it is 19")
 		if zoik == "quit":
-			print("Exiting Zoik requires a restart. tlgOS is now shutting down. Please enter tlgOS again with ./main.py or python main.py")
+			zoikon = False
 			sys.exit(0)
 		if zoik in ["good morning","good afternoon","good evening","good night"]:
 			print("Yes, you too")
@@ -81,7 +82,7 @@ def privacy_clear():
 f = Figlet(font='slant')
 
 print("Attempting to boot tlgOS...")
-print(f.renderText("tlgOS Candy Cane 1.0"))
+print(f.renderText("tlgOS"))
 if not os.path.isfile(FIRST_BOOT_FILE):
 	open(FIRST_BOOT_FILE, 'a').close()
 	print("Creating data... (You may be asked questions during this process.)")
