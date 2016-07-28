@@ -16,4 +16,4 @@ if __name__ == '__main__':
         audio_file = sys.argv[1]
         afplay(audio_file)
     except IndexError:
-        print('Usage: ...')
+        print 'Usage: ...'

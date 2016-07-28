@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+from __future__ import print_function, division
 import sys
 import math
 import datetime
-import os.path
+import os
 import random
-import urllib.request, urllib.error, urllib.parse
+import urllib2
 import subprocess
 import afplay
 import webbrowser
-from pyfiglet import Figlet
+import time
 
 #Creates a variable for each data file path.
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
@@ -22,6 +22,8 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/tlgOS_update_check/'
 
+tlgVersion = "1.1 Xeno"
+
 def read_data():
 	with open(NAME_FILE, "r") as nf:
 		name = ''.join(nf.readlines())
@@ -31,62 +33,28 @@ def read_data():
 		password = ''.join(pf.readlines())
 	return (name, age, password)
 
-def zoik():
-	print("Tips for using Zoik:")
-	print("Limit words ex. instead of \"Zoik, what's 9+10\", say \"9+10\"")
-	print("Do not mess around with Zoik, he gets mad easily")
-	print("Do not Capitialize ANYTHING!")
-	print("Enjoy Zoik!")
-	print("Hello, {}! What can I do for you?".format(name))
-	zoikon = True
-	while zoikon == True:
-		zoik = input("zoik> ")
-		if zoik in ["hi","hello","sup","yo","wassup"]:
-			print("Hi, {}!".format(name))
-		if zoik in ["i hate you","hate you","hate","i hate u","hate u","you are dumb","you dumb","dumb","u r dumb","u dumb","you r dumb","u are dumb","you are stupid","you stupid","stupid","u r stupid","u stupid","you r stupid"]:
-			print("Right back at you, loser!")
-		if zoik in ["9+10","9 + 10","9 plus 10"]:
-			print("To the world it is 21, but to a calculator it is 19")
-		if zoik == "quit":
-			zoikon = False
-			sys.exit(0)
-		if zoik in ["good morning","good afternoon","good evening","good night"]:
-			print("Yes, you too")
-		if zoik == "shut up":
-			print("I can not! My job is to talk, loser!")
-		if zoik == "welp, this is an easter egg!":
-			print("Dogs are just amazing. Rainbows are, too. And Barbie dolls. And TextWrangler™. And me. And you, too. THE WORLD IS AWESOME, DOG!")
-			print("©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™©®™ and so on and so forth...")
-			print("i shall kill u")
-			sys.exit(0)
-		if zoik == "your breath stinks":
-			print("People in glass houses shouldn't throw stones")
-		if zoik in ["your fat","youre fat","you're fat"]:
-			print("You're a fatty poo poo!")
-		if zoik == "what rhymes with duck":
-			print("What you are")
-		if zoik in ["will u marry me","will you marry me"]:
-			print("Are you stupid? I hate you! The answer is NO!")
-		if zoik in ["roblox","minecraft","terraria"]:
-			print("Nah, bro, I'm much better than that")
-		if zoik in ["you are cute","you r cute","u are cute","u r cute","you cute","u cute"]:
-			print("*Blushes*")
-		if zoik == "jeff the killer":
-			print("Just go to sleep...")
-			webbrowser.open_new('http://i.imgur.com/NaeILYu.jpg')
+def clear():
+	os.system('clear')
 
-def privacy_clear():
-	print("\n" * 100)
-	print("tlgOS cleared the console to protect your password.")
-
-f = Figlet(font='slant')
-
-print("Attempting to boot tlgOS...")
-print(f.renderText("tlgOS"))
+clear()
+dots = 10
+while dots > 0:
+	print(".")
+	time.sleep(0.2)
+	clear()
+	print("..")
+	time.sleep(0.2)
+	clear()
+	print("...")
+	time.sleep(0.2)
+	clear()
+	dots -= 1
+time.sleep(3)
+clear()
 if not os.path.isfile(FIRST_BOOT_FILE):
 	open(FIRST_BOOT_FILE, 'a').close()
-	print("Creating data... (You may be asked questions during this process.)")
-	set_name_orig = input("What is your name? ")
+	set_name_orig = raw_input("name - ")
+	clear()
 	set_name_two = set_name_orig[1:]
 	set_name_three = set_name_orig[0]
 	set_name_four = set_name_three.upper()
@@ -94,40 +62,44 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	nf = open(NAME_FILE, 'w')
 	nf.write(set_name_final)
 	nf.close()
-	set_age = int(input("What is your age? "))
+	set_age = int(raw_input("your age - "))
+	clear()
 	af = open(AGE_FILE, 'wt')
 	af.write(str(set_age))
 	af.close()
 	pcf = open(PARENTAL_CONTROLS_FILE, 'a').close()
 	if set_age < 18:
-		set_parental_controls = input("Would you like to enable parental controls? (y/n) ")
+		set_parental_controls = raw_input("parental controls? (y/n) - ")
+		clear()
 		if set_parental_controls == "y":
 			pcf = open(PARENTAL_CONTROLS_FILE, 'w')
-			set_pc_pin = input("What would you like your parental controls pin to be? ")
+			set_pc_pin = raw_input("parental controls pin - ")
+			clear()
 			pcf.write(set_pc_pin)
 			pcf.close()
 		else:
 			pcf = open(PARENTAL_CONTROLS_FILE, 'a').close()
 		if set_parental_controls not in ["y","n"]:
-			print("Invalid answer")
+			print("error - invalid answer")
 			sys.exit(1)
-	set_password = input("What would you like your password to be? ")
+	set_password = raw_input("password - ")
+	clear()
 	pf = open(PASSWORD_FILE, 'w')
 	pf.write(set_password)
 	pf.close()
-	privacy_clear()
+	clear()
 	print("Success! tlgOS is all set up!")
 	print("Reading data...")
 	name, age, password = read_data()
-	print("tlgOS Candy Cane 1.0 - type \"help\" for a list of commands")
+	print("tlgOS {} - type \"help\" for a list of commands".format(tlgVersion))
 	print("Welcome to tlgOS, {}!".format(name))
 else:
 	print("Reading data...")
 	name, age, password = read_data()
-	try_password = input("Please enter the password for {}. ".format(name))
+	try_password = raw_input("Please enter the password for {}. ".format(name))
 	if try_password == password:
-		privacy_clear()
-		print("tlgOS Candy Cane 1.0 - type \"help\" for a list of commands")
+		clear()
+		print("tlgOS {} - type \"help\" for a list of commands".format(tlgVersion))
 	else:
 		print("Incorrect password")
 		sys.exit(1)
@@ -135,7 +107,7 @@ else:
 
 while True:
 	try:
-		command = input("> ")
+		command = raw_input("> ")
 		if command == "help":
 			print("Available commands:")
 			print("calculator - a basic calculator")
@@ -144,7 +116,6 @@ while True:
 			print("reset - resets tlgOS")
 			print("editor - a work in progress text editor")
 			print("credits - tlgOS credits")
-			print("zoik - Zoik, your new best friend")
 			print("about - about your copy of tlgOS")
 			print("update - checks for tlgOS updates")
 			print("copyright - views copyright info")
@@ -153,16 +124,16 @@ while True:
 		if command == "calculator":
 			print("pyCalc v2.0")
 			try:
-				v1 = int(input("Please enter the first value: "))
+				v1 = int(raw_input("Please enter the first value: "))
 			except ValueError:
 				print("{} is not a number".format(v1))
 				sys.exit(1)
-			operation = input("Please enter an operation: ")
+			operation = raw_input("Please enter an operation: ")
 			if operation not in ["+","-","*","/"]:
 				print("{} is not a valid operation".format(operation))
-				sys.exit(1)
+				continue
 			try:
-				v2 = int(input("Please enter the second value: "))
+				v2 = int(raw_input("Please enter the second value: "))
 			except ValueError:
 				print("{} is not a number".format(v2))
 				sys.exit(1)
@@ -186,15 +157,15 @@ while True:
 			sys.exit(0)
 
 		if command == "reset":
-			print("This method has been removed. To reset, type quit, then, type \"python reset.py\".")
+			print("To reset, type quit, then, type \"python reset.py\".")
 
 		if command == "editor":
-			print("Note: pyEdit is still in beta. You CAN NOT:")
+			print("Note: This editor is still in beta. You CAN NOT:")
 			print("Open files")
 			print("Get a new line")
 			print("Also, all files are saved to the files folder.")
-			text = input("Press enter when done > ")
-			save_as = input("What would you like to save this file as? Please enter the name as well as the extention. ")
+			text = raw_input("Press enter when done > ")
+			save_as = raw_input("What would you like to save this file as? Please enter the name as well as the extention. ")
 			TEXT_FILE = 'files/{}'.format(save_as)
 			tf = open(TEXT_FILE, 'w')
 			tf.write(text)
@@ -204,32 +175,14 @@ while True:
 			print("Luke Chambers (TheLukeGuy) - creator of tlgOS project")
 			print("my dad - helped me with making this when I needed it")
 
-		if command == "zoik":
-			print("Reading data...")
-			pcf = open(PARENTAL_CONTROLS_FILE, 'r')
-			pc_pin_false = os.stat(PARENTAL_CONTROLS_FILE).st_size == 0
-			if pc_pin_false == False:
-				print("Zoik contains some language such as \"loser\" and \"kill\"")
-				pin = input("Please enter your parental controls pin to access \"Zoik\": ")
-				if pin == pcf.read():
-					pcf.close()
-					privacy_clear()
-					zoik()
-				else:
-					pcf.close()
-					print("Incorrect pin")
-					sys.exit(1)
-			else:
-				zoik()
-
 		if command == "about":
-			print("tlgOS Candy Cane 1.0 running on",os.uname())
+			print("tlgOS {} running on",os.uname()[1].format(tlgVersion))
 			print("Written in the Python programming language")
-			print("Coded in the Atom and TextWrangler text editors")
+			print("Coded in the Atom, TextWrangler, and Xcode text editors")
 
 		if command == "update":
-			current_version = "tlgOS Candy Cane 1.0"
-			for line in urllib.request.urlopen(TARGET_URL):
+			current_version = "tlgOS {}".format(tlgVersion)
+			for line in urllib2.urlopen(TARGET_URL):
 				version = line
 			print("The latest version of tlgOS is {}".format(version))
 			print("You are running {}".format(current_version))
@@ -238,7 +191,7 @@ while True:
 			print("Licensed under the MIT license")
 			print("The MIT License (MIT)")
 
-			print("Copyright (c) 2015 Luke Chambers")
+			print("Copyright (c) 2016 Luke Chambers")
 
 			print("Permission is hereby granted, free of charge, to any person obtaining a copy")
 			print("of this software and associated documentation files (the \"Software\"), to deal")
@@ -260,8 +213,7 @@ while True:
 
 		if command == "music":
 			print("To add music, locate to the files folder and place your music there.")
-			MUSIC_FILE = input("What is the song saved as? ex. radioactive.mp3 ")
-			print("Use ^C to stop playing music")
+			MUSIC_FILE = raw_input("What is the song saved as? ex. radioactive.mp3 ")
 			afplay.afplay("files/{}".format(MUSIC_FILE))
 
 	except KeyboardInterrupt:
