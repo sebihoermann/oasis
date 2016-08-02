@@ -20,9 +20,9 @@ AGE_FILE = 'data/profile/age.txt'
 PARENTAL_CONTROLS_FILE = 'data/profile/parental_controls.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
 
-TARGET_URL = 'http://thelukeguy.github.io/tlgOS_update_check/'
+TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-tlgVersion = "1.1 Xeno"
+oasisVersion = "2.0 Firefly"
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -88,18 +88,18 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	pf.write(set_password)
 	pf.close()
 	clear()
-	print("Success! tlgOS is all set up!")
+	print("Success! oasis is all set up!")
 	print("Reading data...")
 	name, age, password = read_data()
-	print("tlgOS {} - type \"help\" for a list of commands".format(tlgVersion))
-	print("Welcome to tlgOS, {}!".format(name))
+	print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
+	print("Welcome to oasis, {}!".format(name))
 else:
 	print("Reading data...")
 	name, age, password = read_data()
 	try_password = raw_input("Please enter the password for {}. ".format(name))
 	if try_password == password:
 		clear()
-		print("tlgOS {} - type \"help\" for a list of commands".format(tlgVersion))
+		print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
 	else:
 		print("Incorrect password")
 		sys.exit(1)
@@ -112,12 +112,12 @@ while True:
 			print("Available commands:")
 			print("calculator - a basic calculator")
 			print("clear - clears console")
-			print("quit - quits tlgOS")
-			print("reset - resets tlgOS")
+			print("quit - quits oasis")
+			print("reset - resets oasis")
 			print("editor - a work in progress text editor")
-			print("credits - tlgOS credits")
-			print("about - about your copy of tlgOS")
-			print("update - checks for tlgOS updates")
+			print("credits - oasis credits")
+			print("about - about your copy of oasis")
+			print("update - checks for oasis updates")
 			print("copyright - views copyright info")
 			print("music - plays music you upload")
 
@@ -172,19 +172,19 @@ while True:
 			tf.close()
 
 		if command == "credits":
-			print("Luke Chambers (TheLukeGuy) - creator of tlgOS project")
+			print("Luke Chambers (TheLukeGuy) - creator of oasis project")
 			print("my dad - helped me with making this when I needed it")
 
 		if command == "about":
-			print("tlgOS {} running on",os.uname()[1].format(tlgVersion))
+			print("oasis {} running on",os.uname()[1].format(oasisVersion))
 			print("Written in the Python programming language")
 			print("Coded in the Atom, TextWrangler, and Xcode text editors")
 
 		if command == "update":
-			current_version = "tlgOS {}".format(tlgVersion)
+			current_version = "oasis {}".format(oasisVersion)
 			for line in urllib2.urlopen(TARGET_URL):
 				version = line
-			print("The latest version of tlgOS is {}".format(version))
+			print("The latest version of oasis is {}".format(version))
 			print("You are running {}".format(current_version))
 
 		if command == "copyright":

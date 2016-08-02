@@ -11,6 +11,6 @@ PARENTAL_CONTROLS_FILE = "data/profile/parental_controls.txt"
 try:
 	os.remove(FIRST_BOOT_FILE)
 	os.remove(PARENTAL_CONTROLS_FILE)
-	print("tlgOS has been reset with success!")
+	print("oasis has been reset with success!")
 except OSError:
-	print("Error resetting tlgOS: tlgOS has already been reset or hasn't yet been ran.")
+	print("Error resetting oasis: oasis has already been reset or hasn't yet been ran.")

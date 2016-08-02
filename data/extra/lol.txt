@@ -1,1 +1,1 @@
-Git doesn't store empty folders, and this folder HAS to be empty before you boot tlgOS for the first time, so I created this file!
+Git doesn't store empty folders, and this folder HAS to be empty before you boot oasis for the first time, so I created this file!
