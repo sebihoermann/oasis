@@ -176,7 +176,7 @@ while True:
 			print("my dad - helped me with making this when I needed it")
 
 		if command == "about":
-			print("oasis {} running on",os.uname()[1].format(oasisVersion))
+			print("oasis {} running on {}.".format(oasisVersion, os.uname()[1]))
 			print("Written in the Python programming language")
 			print("Coded in the Atom, TextWrangler, and Xcode text editors")
 

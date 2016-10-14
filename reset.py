@@ -8,6 +8,8 @@ import os
 FIRST_BOOT_FILE = "data/extra/first_boot.txt"
 PARENTAL_CONTROLS_FILE = "data/profile/parental_controls.txt"
 
+os.system('clear')
+
 try:
 	os.remove(FIRST_BOOT_FILE)
 	os.remove(PARENTAL_CONTROLS_FILE)
