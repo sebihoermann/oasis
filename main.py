@@ -22,7 +22,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.0.1 Firefly"
+oasisVersion = "2.0.2 Firefly"
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -119,6 +119,7 @@ while True:
 			print("about - about your copy of oasis")
 			print("update - checks for oasis updates")
 			print("music - plays music you upload")
+			print("lock - locks oasis until you enter your password")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -190,6 +191,23 @@ while True:
 			print("To add music, locate to the files folder and place your music there.")
 			MUSIC_FILE = raw_input("What is the song saved as? ex. Masked_Heroes.mp3 ")
 			afplay.afplay("files/{}".format(MUSIC_FILE))
+
+		if command == "lock":
+			clear()
+			tries = 0
+			while tries < 3:
+				unlock = raw_input("Password for {}: ".format(name))
+				if unlock == password:
+					clear()
+					print("Welcome back, {}.".format(name))
+					break
+				else:
+					tries += 1
+			else:
+				clear()
+				print("Password entered incorrectly 3 times.")
+				print("Shutting down...")
+				sys.exit(0)
 
 	except KeyboardInterrupt:
 		continue
