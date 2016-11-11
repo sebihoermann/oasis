@@ -242,6 +242,7 @@ while True:
 			print("Console cleared!")
 
 		if command == "quit":
+			clear()
 			print("Farewell until we meet again, {}!".format(name))
 			sys.exit(0)
 
