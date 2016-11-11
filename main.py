@@ -243,7 +243,7 @@ while True:
 			print("The answer to {} {} {} is {}".format(v1, operation, v2, answer))
 
 		if command == "clear":
-			print("\n" * 100)
+			clear()
 			print("Console cleared!")
 
 		if command == "quit":
