@@ -22,7 +22,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.0.2 Firefly"
+oasisVersion = "2.1 Firefly"
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -33,8 +33,13 @@ def read_data():
 		password = ''.join(pf.readlines())
 	return (name, age, password)
 
-def clear():
-	os.system('clear')
+try:
+	import console
+	def clear():
+		console.clear()
+except ImportError:
+	def clear():
+		os.system('clear')
 
 clear()
 
