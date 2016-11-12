@@ -13,6 +13,28 @@ import afplay
 import webbrowser
 import time
 
+try:
+	import console
+	def clear():
+		console.clear()
+except ImportError:
+	def clear():
+		os.system('clear')
+
+def pre_release():
+	clear()
+	bootup = raw_input("pre-releases may contain bugs - boot? (y/n) ")
+	if bootup == "n":
+		clear()
+		sys.exit(0)
+	elif bootup not in ["y", "n"]:
+		clear()
+		print("Invalid answer")
+		sys.exit(1)
+	clear()
+
+pre_release()
+
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
@@ -28,14 +50,6 @@ def read_data():
 	with open(PASSWORD_FILE, "r") as pf:
 		password = ''.join(pf.readlines())
 	return (name, password)
-
-try:
-	import console
-	def clear():
-		console.clear()
-except ImportError:
-	def clear():
-		os.system('clear')
 
 clear()
 
@@ -165,7 +179,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	print("Welcome to oasis, {}!".format(name))
 else:
 	print("Reading data...")
-	name, age, password = read_data()
+	name, password = read_data()
 	try_password = raw_input("Please enter the password for {}. ".format(name))
 	if try_password == password:
 		clear()
@@ -184,7 +198,6 @@ while True:
 			print("clear - clears console")
 			print("quit - quits oasis")
 			print("editor - a work in progress text editor")
-			print("credits - oasis credits")
 			print("about - about your copy of oasis")
 			print("update - checks for oasis updates")
 			print("music - plays music you upload")
@@ -240,10 +253,6 @@ while True:
 			tf = open(TEXT_FILE, 'w')
 			tf.write(text)
 			tf.close()
-
-		if command == "credits":
-			print("Luke Chambers (TheLukeGuy) - creator of oasis project")
-			print("my dad - helped me with making this when I needed it")
 
 		if command == "about":
 			print("oasis {} running on {}.".format(oasisVersion, os.uname()[1]))
