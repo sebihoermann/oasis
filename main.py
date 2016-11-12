@@ -21,7 +21,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.2 Firefly"
+oasisVersion = "2.2-dev1 Firefly"
 current_version = "oasis {} (11/12/16)".format(oasisVersion)
 
 def read_data():
