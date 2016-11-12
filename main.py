@@ -13,7 +13,6 @@ import afplay
 import webbrowser
 import time
 
-#Creates a variable for each data file path.
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
 AGE_FILE = 'data/profile/age.txt'
