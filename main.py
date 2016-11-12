@@ -15,23 +15,19 @@ import time
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
-AGE_FILE = 'data/profile/age.txt'
-PARENTAL_CONTROLS_FILE = 'data/profile/parental_controls.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.2-dev1 Firefly"
+oasisVersion = "2.2-dev2 Firefly"
 current_version = "oasis {} (11/12/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
 		name = ''.join(nf.readlines())
-	with open(AGE_FILE, "r") as af:
-		age = ''.join(af.readlines())
 	with open(PASSWORD_FILE, "r") as pf:
 		password = ''.join(pf.readlines())
-	return (name, age, password)
+	return (name, password)
 
 try:
 	import console
@@ -156,26 +152,6 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	nf = open(NAME_FILE, 'w')
 	nf.write(set_name_final)
 	nf.close()
-	set_age = int(raw_input("your age - "))
-	clear()
-	af = open(AGE_FILE, 'wt')
-	af.write(str(set_age))
-	af.close()
-	pcf = open(PARENTAL_CONTROLS_FILE, 'a').close()
-	if set_age < 18:
-		set_parental_controls = raw_input("parental controls? (y/n) - ")
-		clear()
-		if set_parental_controls == "y":
-			pcf = open(PARENTAL_CONTROLS_FILE, 'w')
-			set_pc_pin = raw_input("parental controls pin - ")
-			clear()
-			pcf.write(set_pc_pin)
-			pcf.close()
-		else:
-			pcf = open(PARENTAL_CONTROLS_FILE, 'a').close()
-		if set_parental_controls not in ["y","n"]:
-			print("error - invalid answer")
-			sys.exit(1)
 	set_password = raw_input("password - ")
 	clear()
 	pf = open(PASSWORD_FILE, 'w')
