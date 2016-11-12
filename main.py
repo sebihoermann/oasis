@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, division
+from getpass import getpass
 import sys
 import math
 import datetime
@@ -166,7 +167,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	nf = open(NAME_FILE, 'w')
 	nf.write(set_name_final)
 	nf.close()
-	set_password = raw_input("password - ")
+	set_password = getpass("password - ")
 	clear()
 	pf = open(PASSWORD_FILE, 'w')
 	pf.write(set_password)
@@ -180,7 +181,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 else:
 	print("Reading data...")
 	name, password = read_data()
-	try_password = raw_input("Please enter the password for {}. ".format(name))
+	try_password = getpass("Please enter the password for {}. ".format(name))
 	if try_password == password:
 		clear()
 		print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
@@ -274,7 +275,7 @@ while True:
 			clear()
 			tries = 0
 			while tries < 3:
-				unlock = raw_input("Password for {}: ".format(name))
+				unlock = getpass("Password for {}: ".format(name))
 				if unlock == password:
 					clear()
 					print("Welcome back, {}.".format(name))
