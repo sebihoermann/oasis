@@ -41,7 +41,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.2-dev2 Firefly"
+oasisVersion = "2.2-pre3 Firefly"
 current_version = "oasis {} (11/12/16)".format(oasisVersion)
 
 def read_data():
@@ -174,7 +174,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	clear()
 	print("Success! oasis is all set up!")
 	print("Reading data...")
-	name, age, password = read_data()
+	name, password = read_data()
 	print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
 	print("Welcome to oasis, {}!".format(name))
 else:
@@ -286,14 +286,6 @@ while True:
 				print("Password entered incorrectly 3 times.")
 				print("Shutting down...")
 				sys.exit(0)
-
-		if command == "dev":
-			for line in urllib2.urlopen(TARGET_URL):
-				version = line
-			if version == current_version:
-				print("Coming soon.")
-			else:
-				print("You must be on the latest release version of oasis to use this feature.")
 
 	except KeyboardInterrupt:
 		continue
