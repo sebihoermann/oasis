@@ -22,7 +22,8 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.1.1 Firefly"
+oasisVersion = "2.2 Firefly"
+current_version = "oasis {} (11/12/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -207,7 +208,6 @@ while True:
 			print("calculator - a basic calculator")
 			print("clear - clears console")
 			print("quit - quits oasis")
-			print("reset - resets oasis")
 			print("editor - a work in progress text editor")
 			print("credits - oasis credits")
 			print("about - about your copy of oasis")
@@ -276,7 +276,6 @@ while True:
 			print("Coded in the Atom, TextWrangler, and Xcode text editors")
 
 		if command == "update":
-			current_version = "oasis {}".format(oasisVersion)
 			for line in urllib2.urlopen(TARGET_URL):
 				version = line
 			print("The latest version of oasis is {}".format(version))
@@ -303,6 +302,14 @@ while True:
 				print("Password entered incorrectly 3 times.")
 				print("Shutting down...")
 				sys.exit(0)
+
+		if command == "dev":
+			for line in urllib2.urlopen(TARGET_URL):
+				version = line
+			if version == current_version:
+				print("Coming soon.")
+			else:
+				print("You must be on the latest release version of oasis to use this feature.")
 
 	except KeyboardInterrupt:
 		continue
