@@ -26,7 +26,7 @@ try:
 	from simplecrypt import encrypt, decrypt
 except ImportError:
 	clear()
-	print("To run oasis you need to get simple-crypt.")
+	print("missing - simple-crypt")
 	sys.exit(1)
 
 def unstable_build(build_type):
@@ -37,7 +37,7 @@ def unstable_build(build_type):
 		sys.exit(0)
 	elif bootup not in ["y", "n"]:
 		clear()
-		print("Invalid answer")
+		print("invalid answer")
 		sys.exit(1)
 	clear()
 
@@ -194,7 +194,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	pf.write(set_password)
 	pf.close()
 	clear()
-	print("Success! oasis is all set up!")
+	print("setup - success")
 	print("Reading data...")
 	name, password = read_data()
 	print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
@@ -202,7 +202,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 else:
 	print("Reading data...")
 	name, password = read_data()
-	try_password = getpass("Please enter the password for {}. ".format(name))
+	try_password = getpass("password for {} - ".format(name))
 	if try_password == password:
 		clear()
 		print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
@@ -228,20 +228,20 @@ while True:
 		if command == "calculator":
 			print("pyCalc v2.0")
 			try:
-				v1 = int(raw_input("Please enter the first value: "))
+				v1 = int(raw_input("first value - "))
 			except ValueError:
 				print("{} is not a number".format(v1))
 				sys.exit(1)
-			operation = raw_input("Please enter an operation: ")
+			operation = raw_input("operation - ")
 			if operation not in ["+","-","*","/"]:
 				print("{} is not a valid operation".format(operation))
 				continue
 			try:
-				v2 = int(raw_input("Please enter the second value: "))
+				v2 = int(raw_input("second value - "))
 			except ValueError:
 				print("{} is not a number".format(v2))
 				sys.exit(1)
-			print("Solving problem...")
+			print("solving...")
 			if operation == "+":
 				answer = int(v1+v2)
 			if operation == "-":
@@ -250,27 +250,28 @@ while True:
 				answer = int(v1*v2)
 			if operation == "/":
 				answer = int(v1/v2)
-			print("The answer to {} {} {} is {}".format(v1, operation, v2, answer))
+			print("{} {} {} = {}".format(v1, operation, v2, answer))
 
 		if command == "clear":
 			clear()
-			print("Console cleared!")
+			print("console cleared")
 
 		if command == "quit":
 			clear()
-			print("Farewell until we meet again, {}!".format(name))
+			print("farewell, {}".format(name))
 			sys.exit(0)
 
 		if command == "reset":
-			print("To reset, type quit, then, type \"python reset.py\".")
+			print("reset - type \"python reset.py\" in console")
 
 		if command == "editor":
-			print("Note: This editor is still in beta. You CAN NOT:")
-			print("Open files")
-			print("Get a new line")
-			print("Also, all files are saved to the files folder.")
-			text = raw_input("Press enter when done > ")
-			save_as = raw_input("What would you like to save this file as? Please enter the name as well as the extention. ")
+			print("still in beta - you cannot:")
+			print("open files")
+			print("get a new line")
+			print("---")
+			print("files are saved to \"files\" folder")
+			text = raw_input("editor> ")
+			save_as = raw_input("save file as - ")
 			TEXT_FILE = 'files/{}'.format(save_as)
 			tf = open(TEXT_FILE, 'w')
 			tf.write(text)
@@ -278,35 +279,35 @@ while True:
 
 		if command == "about":
 			print("oasis {} running on {}.".format(oasisVersion, os.uname()[1]))
-			print("Written in the Python programming language")
-			print("Coded in the Atom, TextWrangler, and Xcode text editors")
+			print("written in Python")
+			print("coded in Atom, TextWrangler, and Xcode")
 
 		if command == "update":
 			for line in urllib2.urlopen(TARGET_URL):
 				version = line
-			print("The latest version of oasis is {}".format(version))
-			print("You are running {}".format(current_version))
+			print("latest - {}".format(version))
+			print("current - {}".format(current_version))
 
 		if command == "music":
-			print("To add music, locate to the files folder and place your music there.")
-			MUSIC_FILE = raw_input("What is the song saved as? ex. Masked_Heroes.mp3 ")
+			print("store music in \"files\" folder")
+			MUSIC_FILE = raw_input("music file - ")
 			afplay.afplay("files/{}".format(MUSIC_FILE))
 
 		if command == "lock":
 			clear()
 			tries = 0
 			while tries < 3:
-				unlock = getpass("Password for {}: ".format(name))
+				unlock = getpass("password for {} - ".format(name))
 				if unlock == password:
 					clear()
-					print("Welcome back, {}.".format(name))
+					print("welcome back - {}".format(name))
 					break
 				else:
 					tries += 1
 			else:
 				clear()
-				print("Password entered incorrectly 3 times.")
-				print("Shutting down...")
+				print("incorrect password 3 times")
+				print("shutting down")
 				sys.exit(0)
 
 	except KeyboardInterrupt:
