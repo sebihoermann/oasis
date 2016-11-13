@@ -49,7 +49,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.0-dev1 Aurora"
+oasisVersion = "3.0-dev2 Aurora"
 current_version = "oasis {} (11/13/16)".format(oasisVersion)
 
 def read_data():
