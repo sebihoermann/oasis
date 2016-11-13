@@ -41,7 +41,7 @@ def unstable_build(build_type):
 		sys.exit(1)
 	clear()
 
-unstable_build(development)
+unstable_build("development")
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
