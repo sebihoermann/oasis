@@ -29,9 +29,9 @@ except ImportError:
 	print("To run oasis you need to get simple-crypt.")
 	sys.exit(1)
 
-def pre_release():
+def unstable_build(build_type):
 	clear()
-	bootup = raw_input("pre-releases may contain bugs - boot? (y/n) ")
+	bootup = raw_input("{} builds may contain bugs - boot? (y/n) ".format(build_type))
 	if bootup == "n":
 		clear()
 		sys.exit(0)
@@ -41,7 +41,7 @@ def pre_release():
 		sys.exit(1)
 	clear()
 
-#pre_release()
+unstable_build(development)
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
@@ -49,7 +49,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.2.1 Firefly"
+oasisVersion = "3.0-dev1 Aurora"
 current_version = "oasis {} (11/13/16)".format(oasisVersion)
 
 def read_data():
