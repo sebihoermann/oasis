@@ -5,5 +5,7 @@ For more information on oasis, visit thelukeguy.github.io/oasis. See you there! 
 ##Requirements
 ###Python
 Duh, you need Python because oasis was developed in Python.
+###Simple-Crypt
+Simple-Crypt can be obtained by getting Pip and typing into the console `pip install simple-crypt`.
 ##Opening/Resetting oasis
 Open Terminal, type `cd [path to the oasis folder]`, then `python main.py`. To reset oasis and restart setup, make sure you are in the oasis directory, then type `python reset.py`.
