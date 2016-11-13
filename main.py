@@ -17,7 +17,9 @@ import time
 try:
 	from simplecrypt import encrypt, decrypt
 except ImportError:
+	clear()
 	print("To run oasis you need to get simple-crypt.")
+	sys.exit(1)
 
 try:
 	import console
@@ -182,6 +184,7 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 			clear()
 			break
 		else:
+			clear()
 			print("passwords do not match")
 			time.sleep(3)
 		clear()
