@@ -262,6 +262,7 @@ else:
 
 while True:
 	try:
+		print("\n")
 		command = raw_input("> ")
 		if command == "help":
 			print("Available commands:")
