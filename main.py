@@ -41,7 +41,7 @@ def pre_release():
 		sys.exit(1)
 	clear()
 
-pre_release()
+#pre_release()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
