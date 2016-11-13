@@ -29,9 +29,9 @@ except ImportError:
 	print("missing - simple-crypt")
 	sys.exit(1)
 
-def unstable_build(build_type):
+def development_build():
 	clear()
-	bootup = raw_input("{} builds may contain bugs - boot? (y/n) ".format(build_type))
+	bootup = raw_input("development builds may contain bugs - boot? (y/n) ".)
 	if bootup == "n":
 		clear()
 		sys.exit(0)
@@ -41,7 +41,7 @@ def unstable_build(build_type):
 		sys.exit(1)
 	clear()
 
-unstable_build("development")
+development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
