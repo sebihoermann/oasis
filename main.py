@@ -151,7 +151,7 @@ print("oasis")
 time.sleep(5)
 clear()
 
-dots = 10
+dots = 5
 while dots > 0:
 	print(".")
 	time.sleep(0.2)
