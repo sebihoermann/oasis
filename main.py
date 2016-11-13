@@ -15,6 +15,11 @@ import webbrowser
 import time
 
 try:
+	from simplecrypt import encrypt, decrypt
+except ImportError:
+	print("To run oasis you need to get simple-crypt.")
+
+try:
 	import console
 	def clear():
 		console.clear()
@@ -42,14 +47,16 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.2-pre3 Firefly"
-current_version = "oasis {} (11/12/16)".format(oasisVersion)
+oasisVersion = "2.2-pre4 Firefly"
+current_version = "oasis {} (11/13/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
 		name = ''.join(nf.readlines())
 	with open(PASSWORD_FILE, "r") as pf:
 		password = ''.join(pf.readlines())
+		password = decrypt("oasis", password)
+		password = password.decode('utf8')
 	return (name, password)
 
 clear()
@@ -169,6 +176,8 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	nf.close()
 	set_password = getpass("password - ")
 	clear()
+	print("please wait - encoding password")
+	set_password = encrypt("oasis", set_password.encode('utf8'))
 	pf = open(PASSWORD_FILE, 'w')
 	pf.write(set_password)
 	pf.close()
