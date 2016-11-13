@@ -258,7 +258,7 @@ while True:
 
 		if command == "quit":
 			clear()
-			print("farewell, {}".format(name))
+			print("Farewell until we meet again, {}!".format(name))
 			sys.exit(0)
 
 		if command == "reset":
@@ -270,7 +270,7 @@ while True:
 			print("get a new line")
 			print("---")
 			print("files are saved to \"files\" folder")
-			text = raw_input("editor> ")
+			text = raw_input("editor > ")
 			save_as = raw_input("save file as - ")
 			TEXT_FILE = 'files/{}'.format(save_as)
 			tf = open(TEXT_FILE, 'w')
@@ -286,7 +286,7 @@ while True:
 			for line in urllib2.urlopen(TARGET_URL):
 				version = line
 			print("latest - {}".format(version))
-			print("current - {}".format(current_version))
+			print("running - {}".format(current_version))
 
 		if command == "music":
 			print("store music in \"files\" folder")
@@ -300,7 +300,7 @@ while True:
 				unlock = getpass("password for {} - ".format(name))
 				if unlock == password:
 					clear()
-					print("welcome back - {}".format(name))
+					print("Welcome back, {}!".format(name))
 					break
 				else:
 					tries += 1
