@@ -271,11 +271,21 @@ while True:
 			print("---")
 			print("files are saved to \"files\" folder")
 			text = raw_input("editor > ")
-			save_as = raw_input("save file as - ")
-			TEXT_FILE = 'files/{}'.format(save_as)
-			tf = open(TEXT_FILE, 'w')
-			tf.write(text)
-			tf.close()
+			while True:
+				editorchoice = raw_input("save / discard file - ")
+				if editorchoice == "save":
+					save_as = raw_input("save file as - ")
+					TEXT_FILE = 'files/{}'.format(save_as)
+					tf = open(TEXT_FILE, 'w')
+					tf.write(text)
+					tf.close()
+					print("success - save")
+					break
+				elif editorchoice == "discard":
+					break
+				else:
+					print("error - invalid answer")
+					time.sleep(3)
 
 		if command == "about":
 			print("oasis {} running on {}.".format(oasisVersion, os.uname()[1]))
