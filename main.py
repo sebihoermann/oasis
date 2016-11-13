@@ -15,19 +15,19 @@ import webbrowser
 import time
 
 try:
-	from simplecrypt import encrypt, decrypt
-except ImportError:
-	clear()
-	print("To run oasis you need to get simple-crypt.")
-	sys.exit(1)
-
-try:
 	import console
 	def clear():
 		console.clear()
 except ImportError:
 	def clear():
 		os.system('clear')
+
+try:
+	from simplecrypt import encrypt, decrypt
+except ImportError:
+	clear()
+	print("To run oasis you need to get simple-crypt.")
+	sys.exit(1)
 
 def pre_release():
 	clear()
@@ -49,7 +49,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "2.2-pre4 Firefly"
+oasisVersion = "2.2.1 Firefly"
 current_version = "oasis {} (11/13/16)".format(oasisVersion)
 
 def read_data():
