@@ -174,8 +174,17 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	nf = open(NAME_FILE, 'w')
 	nf.write(set_name_final)
 	nf.close()
-	set_password = getpass("password - ")
-	clear()
+	while True:
+		set_password = getpass("password - ")
+		clear()
+		password_confirm = getpass("confirm password - ")
+		if password_confirm == set_password:
+			clear()
+			break
+		else:
+			print("passwords do not match")
+			time.sleep(3)
+		clear()
 	print("please wait - encoding password")
 	set_password = encrypt("oasis", set_password.encode('utf8'))
 	pf = open(PASSWORD_FILE, 'w')
