@@ -31,7 +31,7 @@ except ImportError:
 
 def development_build():
 	clear()
-	bootup = raw_input("development builds may contain bugs - boot? (y/n) ".)
+	bootup = raw_input("development builds may contain bugs - boot? (y/n) ")
 	if bootup == "n":
 		clear()
 		sys.exit(0)
