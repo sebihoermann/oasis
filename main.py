@@ -13,6 +13,9 @@ import subprocess
 import afplay
 import webbrowser
 import time
+import datetime
+
+now = datetime.datetime.now()
 
 try:
 	import console
@@ -274,6 +277,7 @@ while True:
 			print("update - checks for oasis updates")
 			print("music - plays music you upload")
 			print("lock - locks oasis until you enter your password")
+			print("xmas - 2016 Christmas countdown")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -369,6 +373,19 @@ while True:
 				print("incorrect password 3 times")
 				print("shutting down")
 				sys.exit(0)
+
+		if command == "xmas":
+			months = 12 - now.month
+			days = 25 - now.day
+			if months == 1:
+				month_format = "month"
+			else:
+				month_format = "months"
+			if days == 1:
+				day_format = "day"
+			else:
+				day_format = "days"
+			print("Christmas 2016 is in only {} {} and {} {}!".format(months, month_format, days, day_format))
 
 	except KeyboardInterrupt:
 		continue
