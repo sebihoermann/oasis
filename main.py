@@ -16,6 +16,7 @@ import time
 import datetime
 
 now = datetime.datetime.now()
+year = now.year
 
 try:
 	import console
@@ -52,8 +53,8 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.0-dev2 Aurora"
-current_version = "oasis {} (11/13/16)".format(oasisVersion)
+oasisVersion = "3.0-dev3 Aurora"
+current_version = "oasis {} (11/15/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -167,43 +168,9 @@ clear()
 print("o")
 time.sleep(0.1)
 clear()
-time.sleep(0.1)
-print("A")
-time.sleep(0.1)
-clear()
-print("Au")
-time.sleep(0.1)
-clear()
-print("Aur")
-time.sleep(0.1)
-clear()
-print("Auro")
-time.sleep(0.1)
-clear()
-print("Auror")
-time.sleep(0.1)
-clear()
-print("Aurora")
-time.sleep(3)
-clear()
-print("Auror")
-time.sleep(0.1)
-clear()
-print("Auro")
-time.sleep(0.1)
-clear()
-print("Aur")
-time.sleep(0.1)
-clear()
-print("Au")
-time.sleep(0.1)
-clear()
-print("A")
-time.sleep(0.1)
-clear()
 time.sleep(3)
 
-dots = 5
+dots = 7
 while dots > 0:
 	print(".")
 	time.sleep(0.2)
@@ -277,7 +244,8 @@ while True:
 			print("update - checks for oasis updates")
 			print("music - plays music you upload")
 			print("lock - locks oasis until you enter your password")
-			print("xmas - 2016 Christmas countdown")
+			print("xmas - {} Christmas countdown".format(year))
+			print("convert - simple math conversions")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -385,7 +353,20 @@ while True:
 				day_format = "day"
 			else:
 				day_format = "days"
-			print("Christmas 2016 is in only {} {} and {} {}!".format(months, month_format, days, day_format))
+			print("Christmas {} is in only {} {} and {} {}!".format(year, months, month_format, days, day_format))
+
+		if command == "convert":
+			print("pyCalc convert v0.1")
+			print("---")
+			print("convert options - decimal, fraction, percent")
+			convert1 = raw_input("convert what - ")
+			if not convert1 in ["decimal", "fraction", "percent"]:
+				print("error - invalid input")
+				raise KeyboardInterrupt
+			convert2 = raw_input("to what - ")
+			if not convert2 in ["decimal", "fraction", "percent"]:
+				print("error - invalid input")
+				raise KeyboardInterrupt
 
 	except KeyboardInterrupt:
 		continue
