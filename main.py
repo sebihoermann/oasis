@@ -15,6 +15,11 @@ import webbrowser
 import time
 import datetime
 
+# Set to False to turn off animation
+animation = True
+dot = True
+
+
 now = datetime.datetime.now()
 year = now.year
 
@@ -53,7 +58,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.0-dev3 Aurora"
+oasisVersion = "3.0-dev4 Aurora"
 current_version = "oasis {} (11/15/16)".format(oasisVersion)
 
 def read_data():
@@ -67,122 +72,125 @@ def read_data():
 
 clear()
 
-print("(                              )")
-time.sleep(0.1)
-clear()
-print(" (                            )")
-time.sleep(0.1)
-clear()
-print("  (                          )")
-time.sleep(0.1)
-clear()
-print("   (                        )")
-time.sleep(0.1)
-clear()
-print("    (                      )")
-time.sleep(0.1)
-clear()
-print("     (                    )")
-time.sleep(0.1)
-clear()
-print("      (                  )")
-time.sleep(0.1)
-clear()
-print("       (                )")
-time.sleep(0.1)
-clear()
-print("        (              )")
-time.sleep(0.1)
-clear()
-print("         (            )")
-time.sleep(0.1)
-clear()
-print("          (          )")
-time.sleep(0.1)
-clear()
-print("           (        )")
-time.sleep(0.1)
-clear()
-print("            (      )")
-time.sleep(0.1)
-clear()
-print("             (    )")
-time.sleep(0.1)
-clear()
-print("              (  )")
-time.sleep(0.1)
-clear()
-print("               ()")
-time.sleep(0.1)
-clear()
-print("               O")
-time.sleep(0.1)
-clear()
-print("             O")
-time.sleep(0.1)
-clear()
-print("           O")
-time.sleep(0.1)
-clear()
-print("         O")
-time.sleep(0.1)
-clear()
-print("       O")
-time.sleep(0.1)
-clear()
-print("     o")
-time.sleep(0.1)
-clear()
-print("   o")
-time.sleep(0.1)
-clear()
-print(" o")
-time.sleep(0.1)
-clear()
-print("o")
-time.sleep(0.1)
-clear()
-print("oa")
-time.sleep(0.1)
-clear()
-print("oas")
-time.sleep(0.1)
-clear()
-print("oasi")
-time.sleep(0.1)
-clear()
-print("oasis")
-time.sleep(5)
-clear()
-print("oasi")
-time.sleep(0.1)
-clear()
-time.sleep(0.1)
-clear()
-print("oas")
-time.sleep(0.1)
-clear()
-print("oa")
-time.sleep(0.1)
-clear()
-print("o")
-time.sleep(0.1)
-clear()
-time.sleep(3)
+if animation:
+	print("(                              )")
+	time.sleep(0.1)
+	clear()
+	print(" (                            )")
+	time.sleep(0.1)
+	clear()
+	print("  (                          )")
+	time.sleep(0.1)
+	clear()
+	print("   (                        )")
+	time.sleep(0.1)
+	clear()
+	print("    (                      )")
+	time.sleep(0.1)
+	clear()
+	print("     (                    )")
+	time.sleep(0.1)
+	clear()
+	print("      (                  )")
+	time.sleep(0.1)
+	clear()
+	print("       (                )")
+	time.sleep(0.1)
+	clear()
+	print("        (              )")
+	time.sleep(0.1)
+	clear()
+	print("         (            )")
+	time.sleep(0.1)
+	clear()
+	print("          (          )")
+	time.sleep(0.1)
+	clear()
+	print("           (        )")
+	time.sleep(0.1)
+	clear()
+	print("            (      )")
+	time.sleep(0.1)
+	clear()
+	print("             (    )")
+	time.sleep(0.1)
+	clear()
+	print("              (  )")
+	time.sleep(0.1)
+	clear()
+	print("               ()")
+	time.sleep(0.1)
+	clear()
+	print("               O")
+	time.sleep(0.1)
+	clear()
+	print("             O")
+	time.sleep(0.1)
+	clear()
+	print("           O")
+	time.sleep(0.1)
+	clear()
+	print("         O")
+	time.sleep(0.1)
+	clear()
+	print("       O")
+	time.sleep(0.1)
+	clear()
+	print("     o")
+	time.sleep(0.1)
+	clear()
+	print("   o")
+	time.sleep(0.1)
+	clear()
+	print(" o")
+	time.sleep(0.1)
+	clear()
+	print("o")
+	time.sleep(0.1)
+	clear()
+	print("oa")
+	time.sleep(0.1)
+	clear()
+	print("oas")
+	time.sleep(0.1)
+	clear()
+	print("oasi")
+	time.sleep(0.1)
+	clear()
+	print("oasis")
+	time.sleep(5)
+	clear()
+	print("oasi")
+	time.sleep(0.1)
+	clear()
+	time.sleep(0.1)
+	clear()
+	print("oas")
+	time.sleep(0.1)
+	clear()
+	print("oa")
+	time.sleep(0.1)
+	clear()
+	print("o")
+	time.sleep(0.1)
+	clear()
+	time.sleep(3)
 
-dots = 7
-while dots > 0:
-	print(".")
-	time.sleep(0.2)
-	clear()
-	print("..")
-	time.sleep(0.2)
-	clear()
-	print("...")
-	time.sleep(0.2)
-	clear()
-	dots -= 1
-time.sleep(3)
+if dot:
+	dots = 10
+	while dots > 0:
+		print(".")
+		time.sleep(0.2)
+		clear()
+		print("..")
+		time.sleep(0.2)
+		clear()
+		print("...")
+		time.sleep(0.2)
+		clear()
+		dots -= 1
+	time.sleep(3)
+
 clear()
 if not os.path.isfile(FIRST_BOOT_FILE):
 	open(FIRST_BOOT_FILE, 'a').close()
@@ -218,23 +226,48 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	name, password = read_data()
 	print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
 	print("Welcome to oasis, {}!".format(name))
+	mode = name
 else:
 	print("Reading data...")
 	name, password = read_data()
-	try_password = getpass("password for {} - ".format(name))
-	if try_password == password:
+	print("users - {}, guest".format(name))
+	mode = raw_input("name - ")
+	if mode == "guest":
 		clear()
+		print("logged in as a guest")
 		print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
+
+	elif mode == name:
+		try_password = getpass("password for {} - ".format(name))
+		if try_password == password:
+			clear()
+			print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
+			print('Welcome back, {}!'.format(name))
+		else:
+			print("Incorrect password")
+			sys.exit(1)
+
 	else:
-		print("Incorrect password")
+		clear()
+		print("error - unknown user")
 		sys.exit(1)
-	print('Welcome back, {}!'.format(name))
 
 while True:
 	try:
 		print("\n")
 		command = raw_input("> ")
 		if command == "help":
+			if mode == "guest":
+				print("Available commands:")
+				print("calculator - a basic calculator")
+				print("clear - clears console")
+				print("quit - quits oasis")
+				print("about - about your copy of oasis")
+				print("update - checks for oasis updates")
+				print("xmas - {} Christmas countdown".format(year))
+				print("convert - simple math conversions")
+				raise KeyboardInterrupt
+
 			print("Available commands:")
 			print("calculator - a basic calculator")
 			print("clear - clears console")
@@ -280,13 +313,20 @@ while True:
 
 		if command == "quit":
 			clear()
+			if mode == "guest":
+				print("Farewell until we meet again!")
+				sys.exit(0)
 			print("Farewell until we meet again, {}!".format(name))
 			sys.exit(0)
 
 		if command == "reset":
+			if mode == "guest":
+				raise KeyboardInterrupt
 			print("reset - type \"python reset.py\" in console")
 
 		if command == "editor":
+			if mode == "guest":
+				raise KeyboardInterrupt
 			print("still in beta - you cannot:")
 			print("open files")
 			print("get a new line")
@@ -321,11 +361,15 @@ while True:
 			print("running - {}".format(current_version))
 
 		if command == "music":
+			if mode == "guest":
+				raise KeyboardInterrupt
 			print("store music in \"files\" folder")
 			MUSIC_FILE = raw_input("music file - ")
 			afplay.afplay("files/{}".format(MUSIC_FILE))
 
 		if command == "lock":
+			if mode == "guest":
+				raise KeyboardInterrupt
 			clear()
 			tries = 0
 			while tries < 3:
@@ -367,6 +411,7 @@ while True:
 			if not convert2 in ["decimal", "fraction", "percent"]:
 				print("error - invalid input")
 				raise KeyboardInterrupt
+			print("Work in progress...")
 
 	except KeyboardInterrupt:
 		continue
