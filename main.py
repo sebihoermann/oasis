@@ -17,8 +17,8 @@ import time
 import datetime
 
 # Set to False to turn off animations
-ANIMATION = False
-DOT = False
+ANIMATION = True
+DOT = True
 
 
 now = datetime.datetime.now()
@@ -51,7 +51,7 @@ def development_build():
 		sys.exit(1)
 	clear()
 
-development_build()
+#development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
@@ -59,8 +59,8 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.0-dev5 Aurora"
-current_version = "oasis {} (11/15/16)".format(oasisVersion)
+oasisVersion = "3.0"
+current_version = "oasis {} (11/24/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
