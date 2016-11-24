@@ -411,7 +411,14 @@ while True:
 			if not convert2 in ["decimal", "fraction", "percent"]:
 				print("error - invalid input")
 				raise KeyboardInterrupt
-			print("Work in progress...")
+			if convert1 == "fraction" and convert2 == "percent":
+				numerator = raw_input("numerator - ")
+				denominator = raw_input("denominator - ")
+				answer = str(int(numerator) / int(denominator) * 100)
+				print("{}/{} converted to a percent is {}".format(numerator, denominator, answer))
+			else:
+				print("error - this feature is work in progress")
+				raise KeyboardInterrupt
 
 	except KeyboardInterrupt:
 		continue
