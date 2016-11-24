@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, division
+from fractions import Fraction
 from getpass import getpass
 import sys
 import math
@@ -416,6 +417,10 @@ while True:
 				denominator = raw_input("denominator - ")
 				answer = str(int(numerator) / int(denominator) * 100)
 				print("{}/{} converted to a percent is {}".format(numerator, denominator, answer))
+			elif convert1 == "decimal" and convert2 == "fraction":
+				decimal = raw_input("decimal - ")
+				answer = Fraction(float(decimal))
+				print("{} converted to a fraction is {}".format(decimal, answer))
 			else:
 				print("error - this feature is work in progress")
 				raise KeyboardInterrupt
