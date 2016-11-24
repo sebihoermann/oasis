@@ -16,9 +16,9 @@ import webbrowser
 import time
 import datetime
 
-# Set to False to turn off animation
-animation = True
-dot = True
+# Set to False to turn off animations
+ANIMATION = False
+DOT = False
 
 
 now = datetime.datetime.now()
@@ -59,7 +59,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.0-dev4 Aurora"
+oasisVersion = "3.0-dev5 Aurora"
 current_version = "oasis {} (11/15/16)".format(oasisVersion)
 
 def read_data():
@@ -73,7 +73,7 @@ def read_data():
 
 clear()
 
-if animation:
+def do_animation():
 	print("(                              )")
 	time.sleep(0.1)
 	clear()
@@ -177,7 +177,10 @@ if animation:
 	clear()
 	time.sleep(3)
 
-if dot:
+if ANIMATION:
+	do_animation()
+
+if DOT:
 	dots = 10
 	while dots > 0:
 		print(".")
@@ -267,6 +270,7 @@ while True:
 				print("update - checks for oasis updates")
 				print("xmas - {} Christmas countdown".format(year))
 				print("convert - simple math conversions")
+				print("piglatin - a simple pig latin translator")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -280,6 +284,7 @@ while True:
 			print("lock - locks oasis until you enter your password")
 			print("xmas - {} Christmas countdown".format(year))
 			print("convert - simple math conversions")
+			print("piglatin - a simple pig latin translator")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -422,8 +427,30 @@ while True:
 				answer = Fraction(float(decimal))
 				print("{} converted to a fraction is {}".format(decimal, answer))
 			else:
-				print("error - this feature is work in progress")
+				print("error - this conversion is work in progress")
 				raise KeyboardInterrupt
+
+		if command == "animation":
+			do_animation()
+
+		if command == "piglatin":
+			tofrom = raw_input("translate (to/from) pig latin - ")
+			if tofrom not in ["to", "from"]:
+				print("error - invalid input")
+				raise KeyboardInterrupt
+			if tofrom == "to":
+				firstpl = raw_input("convert what to pig latin - ")
+				secondpl = firstpl[0]
+				thirdpl = firstpl[1:]
+				answer = "{}{}ay".format(thirdpl, secondpl)
+				print("{} in pig latin is {}".format(firstpl, answer))
+			elif tofrom == "from":
+				firstpl = raw_input("convert what from pig latin - ")
+				getlettersbefore = len(firstpl) - 3
+				secondpl = firstpl[:getlettersbefore]
+				thirdpl = firstpl[getlettersbefore]
+				answer = "{}{}".format(thirdpl, secondpl)
+				print("{} from pig latin is {}".format(firstpl, answer))
 
 	except KeyboardInterrupt:
 		continue
