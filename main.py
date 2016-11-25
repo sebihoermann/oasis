@@ -17,8 +17,8 @@ import time
 import datetime
 
 # Set to False to turn off animations
-ANIMATION = True
-DOT = True
+ANIMATION = False
+DOT = False
 
 
 now = datetime.datetime.now()
@@ -51,7 +51,7 @@ def development_build():
 		sys.exit(1)
 	clear()
 
-#development_build()
+development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
@@ -59,7 +59,7 @@ PASSWORD_FILE = 'data/profile/password.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.0"
+oasisVersion = "3.1-pre1"
 current_version = "oasis {} (11/24/16)".format(oasisVersion)
 
 def read_data():
@@ -277,7 +277,7 @@ while True:
 			print("calculator - a basic calculator")
 			print("clear - clears console")
 			print("quit - quits oasis")
-			print("editor - a work in progress text editor")
+			print("text - save text to a local file")
 			print("about - about your copy of oasis")
 			print("update - checks for oasis updates")
 			print("music - plays music you upload")
@@ -285,6 +285,8 @@ while True:
 			print("xmas - {} Christmas countdown".format(year))
 			print("convert - simple math conversions")
 			print("piglatin - a simple pig latin translator")
+			print("books - read downloaded e-books")
+			print("downloader - download files required by certain programs")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -330,15 +332,11 @@ while True:
 				raise KeyboardInterrupt
 			print("reset - type \"python reset.py\" in console")
 
-		if command == "editor":
+		if command == "text":
 			if mode == "guest":
 				raise KeyboardInterrupt
-			print("still in beta - you cannot:")
-			print("open files")
-			print("get a new line")
-			print("---")
 			print("files are saved to \"files\" folder")
-			text = raw_input("editor > ")
+			text = raw_input("text > ")
 			while True:
 				editorchoice = raw_input("save / discard file - ")
 				if editorchoice == "save":
@@ -432,6 +430,7 @@ while True:
 
 		if command == "animation":
 			do_animation()
+			print("played animation")
 
 		if command == "piglatin":
 			tofrom = raw_input("translate (to/from) pig latin - ")
@@ -451,6 +450,37 @@ while True:
 				thirdpl = firstpl[getlettersbefore]
 				answer = "{}{}".format(thirdpl, secondpl)
 				print("{} from pig latin is {}".format(firstpl, answer))
+
+		if command == "books":
+			if mode == "guest":
+				raise KeyboardInterrupt
+			print("store books in \"files\" folder")
+			print("books downloaded using the downloader are saved as [title]-[author].txt")
+			BOOK_FILE = raw_input("book file - ")
+			try:
+				with open("files/{}".format(BOOK_FILE), "r") as bf:
+					book = bf.read()
+			except IOError:
+				print("error - unknown file")
+				raise KeyboardInterrupt
+			clear()
+			print("entering book mode - to exit, press enter or return")
+			print("\n")
+			print(book)
+			raw_input()
+			clear()
+			print("exiting book mode")
+
+		if command == "downloader":
+			if mode == "guest":
+				raise KeyboardInterrupt
+			else:
+				print("this application will download files to the oasis directory")
+				dl_password = getpass("password for {} - ".format(name))
+				if not dl_password == password:
+					print("error - incorrect password")
+					raise KeyboardInterrupt
+				print("error - this feature is work in progress")
 
 	except KeyboardInterrupt:
 		continue

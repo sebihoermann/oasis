@@ -1,0 +1,1 @@
+This is the test book for the "book" application! You can use the "downloader" command to download a book somebody else made! If you ever make a book, be sure to name the file [book title]-[book author].txt so it can be easily read by the reader. Anyway, enjoy the new book feature!
