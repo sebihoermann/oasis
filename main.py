@@ -17,8 +17,8 @@ import time
 import datetime
 
 # Set to False to turn off animations
-ANIMATION = False
-DOT = False
+ANIMATION = True
+DOT = True
 
 
 now = datetime.datetime.now()
@@ -481,6 +481,7 @@ while True:
 					book_download.append(line)
 				book_title = book_download[0]
 				book_author = book_download[1]
+				book_download = book_download[2:]
 				NEW_BOOK_FILE = "{}-{}.txt".format(book_title.strip(), book_author.strip())
 				book_download_length = len(book_download)
 				book_download_str = "".join(book_download)
