@@ -475,12 +475,19 @@ while True:
 			if mode == "guest":
 				raise KeyboardInterrupt
 			else:
-				print("this application will download files to the oasis directory")
-				dl_password = getpass("password for {} - ".format(name))
-				if not dl_password == password:
-					print("error - incorrect password")
-					raise KeyboardInterrupt
-				print("error - this feature is work in progress")
+				TARGET_URL = raw_input("download url - ")
+				book_download = []
+				for line in urllib2.urlopen(TARGET_URL):
+					book_download.append(line)
+				book_title = book_download[0]
+				book_author = book_download[1]
+				NEW_BOOK_FILE = "{}-{}.txt".format(book_title.strip(), book_author.strip())
+				book_download_length = len(book_download)
+				book_download_str = "".join(book_download)
+				open("files/{}".format(NEW_BOOK_FILE), 'a').close()
+				with open("files/{}".format(NEW_BOOK_FILE), 'w') as nbf:
+					nbf.write(book_download_str)
+				print("success - download")
 
 	except KeyboardInterrupt:
 		continue
