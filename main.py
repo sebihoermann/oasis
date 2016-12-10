@@ -271,6 +271,7 @@ while True:
 				print("convert - simple math conversions")
 				print("piglatin - a simple pig latin translator")
 				print("reload - reloads oasis")
+				print("python - execute Python code")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -289,6 +290,7 @@ while True:
 			print("downloader - download files required by certain programs")
 			print("settings - configure oasis to your liking")
 			print("reload - reloads oasis")
+			print("python - execute Python code")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -568,6 +570,28 @@ while True:
 			read_data()
 			clear()
 			print("success - reload")
+
+		if command == "python":
+			clear()
+			print("oasis Python interpreter")
+			print("type \"quit\" to exit")
+			print("\n")
+			while True:
+				to_exec = raw_input("py> ")
+				if to_exec == "quit":
+					clear()
+					print("exited Python interpreter")
+					break
+				elif to_exec[0:5] == "name=" or to_exec[0:6] == "name =":
+					print("[oasis] error - you can not change name variable")
+				elif to_exec[0:9] == "password=" or to_exec[0:10] == "password =":
+					print("[oasis] error - you can not change password variable")
+				else:
+					try:
+						exec(to_exec)
+					except Exception as e:
+						print("error - {}".format(e))
+				print("\n")
 
 	except KeyboardInterrupt:
 		continue
