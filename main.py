@@ -15,6 +15,9 @@ import afplay
 import webbrowser
 import time
 import datetime
+import readline
+
+readline.parse_and_bind('set editing-mode vi')
 
 # Set to False to turn off animations
 ANIMATION = False
@@ -55,10 +58,11 @@ development_build()
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
+GUEST_MESSAGE_FILE = 'data/settings/guest_message.txt'
 
 TARGET_URL = 'ahttp://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.1-pre2"
+oasisVersion = "3.1-pre3"
 current_version = "oasis {} (12/10/16)".format(oasisVersion)
 
 def read_data():
@@ -68,7 +72,9 @@ def read_data():
 		password = ''.join(pf.readlines())
 		password = decrypt("oasis", password)
 		password = password.decode('utf8')
-	return (name, password)
+	with open(GUEST_MESSAGE_FILE, "r") as gmf:
+		guest_message = ''.join(gmf.readlines())
+	return (name, password, guest_message)
 
 clear()
 
@@ -226,18 +232,18 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	clear()
 	print("setup - success")
 	print("Reading data...")
-	name, password = read_data()
+	name, password, guest_message = read_data()
 	print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
 	print("Welcome to oasis, {}!".format(name))
 	mode = name
 else:
 	print("Reading data...")
-	name, password = read_data()
+	name, password, guest_message = read_data()
 	print("users - {}, guest".format(name))
 	mode = raw_input("name - ")
 	if mode == "guest":
 		clear()
-		print("logged in as a guest")
+		print(guest_message)
 		print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
 
 	elif mode == name:
@@ -254,6 +260,13 @@ else:
 		clear()
 		print("error - unknown user")
 		sys.exit(1)
+
+if mode == "guest":
+	commands = ["help", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python"]
+else:
+	commands = ["help", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python"]
+
+readline.clear_history()
 
 while True:
 	try:
@@ -505,6 +518,7 @@ while True:
 		if command == "settings":
 			print("Settings:")
 			print("setpass - change your password to oasis")
+			print("guestmessage - change the guest login message")
 			print("\n")
 			setting = raw_input("setting - ")
 			if setting == "setpass":
@@ -512,7 +526,6 @@ while True:
 				if getpass("old password - ") == password:
 					clear()
 					while True:
-
 						set_password = getpass("new password - ")
 						clear()
 						password_confirm = getpass("confirm new password - ")
@@ -553,12 +566,17 @@ while True:
 					clear()
 					read_data()
 					clear()
-					print("successfully reloaded oasis")
+					print("success - reload")
 					raise KeyboardInterrupt
 
 				else:
 					print("error - incorrect password")
 					raise KeyboardInterrupt
+
+			elif setting == "guestmessage":
+				with open(GUEST_MESSAGE_FILE, "w") as gmf:
+					gmf.write(raw_input("new message - "))
+				print("success - change guest message")
 
 			else:
 				print("error - invalid setting")
@@ -592,6 +610,9 @@ while True:
 					except Exception as e:
 						print("error - {}".format(e))
 				print("\n")
+
+		if not command in commands:
+			print("invalid command - type \"help\" for a list of commands")
 
 	except KeyboardInterrupt:
 		continue
