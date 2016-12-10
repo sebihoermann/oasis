@@ -17,9 +17,8 @@ import time
 import datetime
 
 # Set to False to turn off animations
-ANIMATION = True
-DOT = True
-
+ANIMATION = False
+DOT = False
 
 now = datetime.datetime.now()
 year = now.year
@@ -57,10 +56,10 @@ FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
 
-TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
+TARGET_URL = 'ahttp://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.1-pre1"
-current_version = "oasis {} (11/24/16)".format(oasisVersion)
+oasisVersion = "3.1-pre2"
+current_version = "oasis {} (12/10/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -271,6 +270,7 @@ while True:
 				print("xmas - {} Christmas countdown".format(year))
 				print("convert - simple math conversions")
 				print("piglatin - a simple pig latin translator")
+				print("reload - reloads oasis")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -287,6 +287,8 @@ while True:
 			print("piglatin - a simple pig latin translator")
 			print("books - read downloaded e-books")
 			print("downloader - download files required by certain programs")
+			print("settings - configure oasis to your liking")
+			print("reload - reloads oasis")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -359,8 +361,12 @@ while True:
 			print("coded in Atom, TextWrangler, and Xcode")
 
 		if command == "update":
-			for line in urllib2.urlopen(TARGET_URL):
-				version = line
+			try:
+				for line in urllib2.urlopen(TARGET_URL):
+					version = line
+			except:
+				print("error - could not connect to \"http://thelukeguy.github.io/oasis_update_check/\"")
+				raise KeyboardInterrupt
 			print("latest - {}".format(version))
 			print("running - {}".format(current_version))
 
@@ -477,8 +483,12 @@ while True:
 			else:
 				TARGET_URL = raw_input("download url - ")
 				book_download = []
-				for line in urllib2.urlopen(TARGET_URL):
-					book_download.append(line)
+				try:
+					for line in urllib2.urlopen(TARGET_URL):
+						book_download.append(line)
+				except:
+					print("error - invalid url")
+					raise KeyboardInterrupt
 				book_title = book_download[0]
 				book_author = book_download[1]
 				book_download = book_download[2:]
@@ -489,6 +499,75 @@ while True:
 				with open("files/{}".format(NEW_BOOK_FILE), 'w') as nbf:
 					nbf.write(book_download_str)
 				print("success - download")
+
+		if command == "settings":
+			print("Settings:")
+			print("setpass - change your password to oasis")
+			print("\n")
+			setting = raw_input("setting - ")
+			if setting == "setpass":
+				clear()
+				if getpass("old password - ") == password:
+					clear()
+					while True:
+
+						set_password = getpass("new password - ")
+						clear()
+						password_confirm = getpass("confirm new password - ")
+						if password_confirm == set_password:
+							clear()
+							break
+						else:
+							clear()
+							print("passwords do not match")
+							time.sleep(3)
+						clear()
+					print("please wait - encoding password")
+					set_password = encrypt("oasis", set_password.encode('utf8'))
+					pf = open(PASSWORD_FILE, 'w')
+					pf.write(set_password)
+					pf.close()
+					clear()
+					print("success - change password")
+					time.sleep(3)
+					clear()
+					print("reloading oasis in 5")
+					time.sleep(1)
+					clear()
+					print("reloading oasis in 4")
+					time.sleep(1)
+					clear()
+					print("reloading oasis in 3")
+					time.sleep(1)
+					clear()
+					print("reloading oasis in 2")
+					time.sleep(1)
+					clear()
+					print("reloading oasis in 1")
+					time.sleep(1)
+					clear()
+					print("reloading oasis...")
+					time.sleep(3)
+					clear()
+					read_data()
+					clear()
+					print("successfully reloaded oasis")
+					raise KeyboardInterrupt
+
+				else:
+					print("error - incorrect password")
+					raise KeyboardInterrupt
+
+			else:
+				print("error - invalid setting")
+				raise KeyboardInterrupt
+
+		if command == "reload":
+			clear()
+			print("reloading oasis - this may take a moment")
+			read_data()
+			clear()
+			print("success - reload")
 
 	except KeyboardInterrupt:
 		continue
