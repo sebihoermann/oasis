@@ -60,9 +60,9 @@ NAME_FILE = 'data/profile/name.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
 GUEST_MESSAGE_FILE = 'data/settings/guest_message.txt'
 
-TARGET_URL = 'ahttp://thelukeguy.github.io/oasis_update_check/'
+TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.1-pre3"
+oasisVersion = "3.1-pre3.1"
 current_version = "oasis {} (12/10/16)".format(oasisVersion)
 
 def read_data():
