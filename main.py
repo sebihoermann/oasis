@@ -608,7 +608,7 @@ while True:
 					print("[oasis] error - you can not change name variable")
 				elif to_exec[0:9] == "password=" or to_exec[0:10] == "password =":
 					print("[oasis] error - you can not change password variable")
-				elif to_exec[0:5] == "mode=" or to_exec[0:6] == "mode ="
+				elif to_exec[0:5] == "mode=" or to_exec[0:6] == "mode =":
 					print("[oasis] error - you can not change mode variable")
 				else:
 					try:
