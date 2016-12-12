@@ -53,7 +53,7 @@ def development_build():
 		sys.exit(1)
 	clear()
 
-development_build()
+#development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
@@ -62,7 +62,7 @@ GUEST_MESSAGE_FILE = 'data/settings/guest_message.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.1"
+oasisVersion = "3.1.1"
 current_version = "oasis {} (12/12/16)".format(oasisVersion)
 
 def read_data():
