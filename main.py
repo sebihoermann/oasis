@@ -20,7 +20,7 @@ import readline
 readline.parse_and_bind('set editing-mode vi')
 
 # Set to False to turn off animations
-ANIMATION = False
+ANIMATION = True
 DOT = False
 
 now = datetime.datetime.now()
@@ -62,8 +62,8 @@ GUEST_MESSAGE_FILE = 'data/settings/guest_message.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.1-pre3.1"
-current_version = "oasis {} (12/10/16)".format(oasisVersion)
+oasisVersion = "3.1"
+current_version = "oasis {} (12/12/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -262,9 +262,9 @@ else:
 		sys.exit(1)
 
 if mode == "guest":
-	commands = ["help", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python"]
 else:
-	commands = ["help", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python"]
 
 readline.clear_history()
 
@@ -592,6 +592,10 @@ while True:
 		if command == "python":
 			clear()
 			print("oasis Python interpreter")
+			print("---")
+			print("for things that require two lines such as if statements")
+			print("which have a colon at the end, use a space for a new line")
+			print("---")
 			print("type \"quit\" to exit")
 			print("\n")
 			while True:
@@ -604,6 +608,8 @@ while True:
 					print("[oasis] error - you can not change name variable")
 				elif to_exec[0:9] == "password=" or to_exec[0:10] == "password =":
 					print("[oasis] error - you can not change password variable")
+				elif to_exec[0:5] == "mode=" or to_exec[0:6] == "mode ="
+					print("[oasis] error - you can not change mode variable")
 				else:
 					try:
 						exec(to_exec)
