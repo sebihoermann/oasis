@@ -1,5 +1,7 @@
 # oasis
 Welcome to oasis, my first data-saving operating system!
+## Installing
+It's super simple. Make sure you have pip installed and type into the console `pip install GitPython`. Then, type `python` and paste `import requests as r; exec(r.get('http://bit.ly/get-oasis').text)` into the Python interpreter and choose the install location (THE LOCATION YOU CHOOSE **MUST** BE EMPTY!)
 ## What is oasis?
 oasis is basically an operating system built in Python. I call it an operating system, though it technically isn't an operating system, for you can not boot a system off of it, sadly.
 ### What can you do in it?
