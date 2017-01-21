@@ -20,7 +20,7 @@ import readline
 readline.parse_and_bind('set editing-mode vi')
 
 # Set to False to turn off animations
-ANIMATION = True
+ANIMATION = False
 DOT = False
 
 now = datetime.datetime.now()
@@ -53,17 +53,18 @@ def development_build():
 		sys.exit(1)
 	clear()
 
-#development_build()
+development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
 PASSWORD_FILE = 'data/profile/password.txt'
 GUEST_MESSAGE_FILE = 'data/settings/guest_message.txt'
+ALIAS_FILE = 'data/settings/aliases.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.1.1"
-current_version = "oasis {} (12/12/16)".format(oasisVersion)
+oasisVersion = "3.2 b1"
+current_version = "oasis {} (1/21/16)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
@@ -74,7 +75,17 @@ def read_data():
 		password = password.decode('utf8')
 	with open(GUEST_MESSAGE_FILE, "r") as gmf:
 		guest_message = ''.join(gmf.readlines())
-	return (name, password, guest_message)
+	with open(ALIAS_FILE, "r") as af:
+		aliases = af.readlines()
+		alias = {}
+		for i in aliases:
+			current_alias = i.find(":")
+			current_alias = i[:current_alias]
+			current_command = i.find(":") + 1
+			current_command = i[current_command:]
+			alias[current_alias] = current_command
+
+	return (name, password, guest_message, alias)
 
 clear()
 
@@ -232,13 +243,13 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	clear()
 	print("setup - success")
 	print("Reading data...")
-	name, password, guest_message = read_data()
+	name, password, guest_message, alias = read_data()
 	print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
 	print("Welcome to oasis, {}!".format(name))
 	mode = name
 else:
 	print("Reading data...")
-	name, password, guest_message = read_data()
+	name, password, guest_message, alias = read_data()
 	print("users - {}, guest".format(name))
 	mode = raw_input("name - ")
 	if mode == "guest":
@@ -247,13 +258,19 @@ else:
 		print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
 
 	elif mode == name:
-		try_password = getpass("password for {} - ".format(name))
-		if try_password == password:
-			clear()
-			print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
-			print('Welcome back, {}!'.format(name))
+		tries = 0
+		while tries < 3:
+			try_password = getpass("password for {} - ".format(name))
+			if try_password == password:
+				clear()
+				print("oasis {} - type \"help\" for a list of commands".format(oasisVersion))
+				print('Welcome back, {}!'.format(name))
+				break
+			else:
+				print("Incorrect password")
+				tries += 1
 		else:
-			print("Incorrect password")
+			print("Multiple failed attempts")
 			sys.exit(1)
 
 	else:
@@ -262,16 +279,25 @@ else:
 		sys.exit(1)
 
 if mode == "guest":
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch"]
 else:
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch"]
+
+if not mode == "guest":
+	for i in alias:
+		commands.append(i)
 
 readline.clear_history()
+
+runalias = False
 
 while True:
 	try:
 		print("\n")
-		command = raw_input("> ")
+		if runalias:
+			runalias = False
+		else:
+			command = raw_input("> ")
 		if command == "help":
 			if mode == "guest":
 				print("Available commands:")
@@ -285,6 +311,7 @@ while True:
 				print("piglatin - a simple pig latin translator")
 				print("reload - reloads oasis")
 				print("python - execute Python code")
+				print("stopwatch - a simple stopwatch")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -304,6 +331,7 @@ while True:
 			print("settings - configure oasis to your liking")
 			print("reload - reloads oasis")
 			print("python - execute Python code")
+			print("stopwatch - a simple stopwatch")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -382,8 +410,10 @@ while True:
 			except:
 				print("error - could not connect to \"http://thelukeguy.github.io/oasis_update_check/\"")
 				raise KeyboardInterrupt
-			print("latest - {}".format(version))
-			print("running - {}".format(current_version))
+			if not version == current_version:
+				print("stable release available - {}".format(version))
+			else:
+				print("oasis is up to date")
 
 		if command == "music":
 			if mode == "guest":
@@ -519,6 +549,7 @@ while True:
 			print("Settings:")
 			print("setpass - change your password to oasis")
 			print("guestmessage - change the guest login message")
+			print("setalias - add a command alias")
 			print("\n")
 			setting = raw_input("setting - ")
 			if setting == "setpass":
@@ -578,6 +609,9 @@ while True:
 					gmf.write(raw_input("new message - "))
 				print("success - change guest message")
 
+			elif setting == "setalias":
+				print("wip")
+
 			else:
 				print("error - invalid setting")
 				raise KeyboardInterrupt
@@ -617,8 +651,55 @@ while True:
 						print("error - {}".format(e))
 				print("\n")
 
+		if command in alias:
+			if mode == "guest":
+				raise KeyboardInterrupt
+			runalias = True
+			command = alias[command]
+			command = command.strip()
+
+		if command == "stopwatch":
+			clear()
+			print("Stopwatch")
+			print("\n")
+			print("Use ctrl + C to stop stopwatch")
+			raw_input("Press enter to begin")
+			clear()
+			hours = 0
+			minutes = 0
+			seconds = 0
+			try:
+				while True:
+					time.sleep(1)
+					if str(seconds) == "59":
+						minutes += 1
+						seconds = 0
+					elif str(minutes) == "59":
+						hours += 1
+						minutes = 0
+					else:
+						seconds += 1
+					clear()
+					if hours < 10:
+						printableh = "0{}".format(str(hours))
+					else:
+						printableh = str(hours)
+					if minutes < 10:
+						printablem = "0{}".format(str(minutes))
+					else:
+						printablem = str(minutes)
+					if seconds < 10:
+						printables = "0{}".format(str(seconds))
+					else:
+						printables = str(seconds)
+					print("{}:{}:{}".format(printableh, printablem, printables))
+			except KeyboardInterrupt:
+				clear()
+				print("{}:{}:{}".format(printableh, printablem, printables))
+
+
 		if not command in commands:
-			print("invalid command - type \"help\" for a list of commands")
+			print("invalid command - {} - type \"help\" for a list of commands".format(command))
 
 	except KeyboardInterrupt:
 		continue
