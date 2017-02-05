@@ -20,8 +20,7 @@ import readline
 readline.parse_and_bind('set editing-mode vi')
 
 # Set to False to turn off animations
-ANIMATION = False
-DOT = False
+ANIMATION = True
 
 now = datetime.datetime.now()
 year = now.year
@@ -63,7 +62,7 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.2 b1"
+oasisVersion = "3.2 b2"
 current_version = "oasis {} (1/21/16)".format(oasisVersion)
 
 def read_data():
@@ -192,27 +191,51 @@ def do_animation():
 	time.sleep(0.1)
 	clear()
 	time.sleep(3)
+	clear()
+	print("A")
+	time.sleep(0.1)
+	clear()
+	print("Au")
+	time.sleep(0.1)
+	clear()
+	print(" ur")
+	time.sleep(0.1)
+	clear()
+	print("  ro")
+	time.sleep(0.1)
+	clear()
+	print("   or")
+	time.sleep(0.1)
+	clear()
+	print("    ra")
+	time.sleep(0.1)
+	clear()
+	print("     a")
+	clear()
+	time.sleep(1)
+	print("A")
+	time.sleep(0.1)
+	clear()
+	print("Au")
+	time.sleep(0.1)
+	clear()
+	print("Aur")
+	time.sleep(0.1)
+	clear()
+	print("Auro")
+	time.sleep(0.1)
+	clear()
+	print("Auror")
+	time.sleep(0.1)
+	clear()
+	print("Aurora")
+	time.sleep(3)
 
 if ANIMATION:
 	do_animation()
 
-if DOT:
-	dots = 10
-	while dots > 0:
-		print(".")
-		time.sleep(0.2)
-		clear()
-		print("..")
-		time.sleep(0.2)
-		clear()
-		print("...")
-		time.sleep(0.2)
-		clear()
-		dots -= 1
-	time.sleep(3)
-
-clear()
 if not os.path.isfile(FIRST_BOOT_FILE):
+	clear()
 	open(FIRST_BOOT_FILE, 'a').close()
 	set_name_orig = raw_input("name - ")
 	clear()
@@ -250,6 +273,8 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 else:
 	print("Reading data...")
 	name, password, guest_message, alias = read_data()
+	clear()
+	print("Reading data...")
 	print("users - {}, guest".format(name))
 	mode = raw_input("name - ")
 	if mode == "guest":
@@ -279,9 +304,9 @@ else:
 		sys.exit(1)
 
 if mode == "guest":
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps"]
 else:
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps"]
 
 if not mode == "guest":
 	for i in alias:
@@ -310,8 +335,9 @@ while True:
 				print("convert - simple math conversions")
 				print("piglatin - a simple pig latin translator")
 				print("reload - reloads oasis")
-				print("python - execute Python code")
 				print("stopwatch - a simple stopwatch")
+				print("rps - rock, paper, scissors")
+				print("new_about - test the upcoming redesigned \"about\" command")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -332,6 +358,8 @@ while True:
 			print("reload - reloads oasis")
 			print("python - execute Python code")
 			print("stopwatch - a simple stopwatch")
+			print("rps - rock, paper, scissors")
+			print("new_about - test the upcoming redesigned \"about\" command")
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -620,10 +648,13 @@ while True:
 			clear()
 			print("reloading oasis - this may take a moment")
 			read_data()
+			name, password, guest_message, alias = read_data()
 			clear()
 			print("success - reload")
 
 		if command == "python":
+			if mode == "guest":
+				raise KeyboardInterrupt
 			clear()
 			print("oasis Python interpreter")
 			print("---")
@@ -697,6 +728,139 @@ while True:
 				clear()
 				print("{}:{}:{}".format(printableh, printablem, printables))
 
+		if command == "rps":
+			print("mode - (1) against computer or (2) multiplayer")
+			rpsmode = raw_input()
+			if rpsmode not in ["1", "2"]:
+				print("Invalid input")
+				raise KeyboardInterrupt
+			elif rpsmode == "1":
+				while True:
+					rps = raw_input("rock, paper, or scissors? ")
+					if not rps in ["rock", "paper", "scissors"]:
+						print("Invalid input")
+						pass
+					else:
+						cpu = random.choice(["rock", "paper", "scissors"])
+						print("computer chooses {}".format(cpu))
+						if rps == cpu:
+							print("tie game")
+							print("\n")
+						elif rps == "rock" and cpu == "paper":
+							print("computer wins")
+							print("\n")
+						elif rps == "paper" and cpu == "rock":
+							print("player wins")
+							print("\n")
+						elif rps == "paper" and cpu == "scissors":
+							print("computer wins")
+							print("\n")
+						elif rps == "scissors" and cpu == "paper":
+							print("player wins")
+							print("\n")
+						elif rps == "scissors" and cpu == "rock":
+							print("computer wins")
+							print("\n")
+						elif rps == "rock" and cpu == "scissors":
+							print("player wins")
+							print("\n")
+			else:
+				while True:
+					p1 = getpass("P1: rock, paper, or scissors? ")
+					if not p1 in ["rock", "paper", "scissors"]:
+						print("Invalid input")
+						pass
+					else:
+						p2 = getpass("P2: rock, paper, or scissors? ")
+						if not p2 in ["rock", "paper", "scissors"]:
+							print("Invalid input")
+							pass
+						else:
+							print("P1 picked {}".format(p1))
+							print("P2 picked {}".format(p2))
+							if p1 == p2:
+								print("tie game")
+								print("\n")
+							elif p1 == "rock" and p2 == "paper":
+								print("P2 wins")
+								print("\n")
+							elif p1 == "paper" and p2 == "rock":
+								print("P1 wins")
+								print("\n")
+							elif p1 == "paper" and p2 == "scissors":
+								print("P2 wins")
+								print("\n")
+							elif p1 == "scissors" and p2 == "paper":
+								print("P1 wins")
+								print("\n")
+							elif p1 == "scissors" and p2 == "rock":
+								print("P2 wins")
+								print("\n")
+							elif p1 == "rock" and p2 == "scissors":
+								print("P1 wins")
+								print("\n")
+
+		if command == "new_about":
+			clear()
+			time.sleep(5)
+			print("o")
+			time.sleep(0.1)
+			clear()
+			print("oa")
+			time.sleep(0.1)
+			clear()
+			print(" as")
+			time.sleep(0.1)
+			clear()
+			print("  si")
+			time.sleep(0.1)
+			clear()
+			print("   is")
+			time.sleep(0.1)
+			clear()
+			print("    s")
+			clear()
+			time.sleep(1)
+			print("o")
+			time.sleep(0.1)
+			clear()
+			print("oa")
+			time.sleep(0.1)
+			clear()
+			print("oas")
+			time.sleep(0.1)
+			clear()
+			print("oasi")
+			time.sleep(0.1)
+			clear()
+			print("oasis")
+			time.sleep(3)
+			clear()
+			print("oasis")
+			time.sleep(2)
+			print("version {}".format(oasisVersion))
+			time.sleep(3)
+			print("\n")
+			print("a project by TheLukeGuy")
+			time.sleep(2)
+			print("formally known as tlgOS")
+			time.sleep(2)
+			print("started late 2015")
+			time.sleep(2)
+			print("coded in Atom, TextWrangler, and Xcode")
+			time.sleep(2)
+			print("coded on two different MacBook Pros and a Mac mini")
+			time.sleep(3)
+			print("\n")
+			print("website: http://lukepchambers.net/oasis")
+			time.sleep(2)
+			print("GitHub: https://github.com/TheLukeGuy/oasis")
+			print("\n")
+			time.sleep(3)
+			print("press enter to exit")
+			raw_input()
+			clear()
+			raise KeyboardInterrupt
 
 		if not command in commands:
 			print("invalid command - {} - type \"help\" for a list of commands".format(command))
