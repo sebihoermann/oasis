@@ -20,7 +20,7 @@ import readline
 readline.parse_and_bind('set editing-mode vi')
 
 # Set to False to turn off animations
-ANIMATION = True
+ANIMATION = False
 
 now = datetime.datetime.now()
 year = now.year
@@ -62,7 +62,7 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.2 b2"
+oasisVersion = "3.2"
 current_version = "oasis {} (1/21/16)".format(oasisVersion)
 
 def read_data():
@@ -174,7 +174,7 @@ def do_animation():
 	time.sleep(0.1)
 	clear()
 	print("oasis")
-	time.sleep(5)
+	time.sleep(3)
 	clear()
 	print("oasi")
 	time.sleep(0.1)
@@ -337,7 +337,6 @@ while True:
 				print("reload - reloads oasis")
 				print("stopwatch - a simple stopwatch")
 				print("rps - rock, paper, scissors")
-				print("new_about - test the upcoming redesigned \"about\" command")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -359,7 +358,10 @@ while True:
 			print("python - execute Python code")
 			print("stopwatch - a simple stopwatch")
 			print("rps - rock, paper, scissors")
-			print("new_about - test the upcoming redesigned \"about\" command")
+
+			for i in alias:
+				if not i.strip() == "":
+					print("{} - alias for \"{}\"".format(i.strip(), alias[i.strip()].strip()))
 
 		if command == "calculator":
 			print("pyCalc v2.0")
@@ -426,7 +428,7 @@ while True:
 					print("error - invalid answer")
 					time.sleep(3)
 
-		if command == "about":
+		if command == "about-legacy":
 			print("oasis {} running on {}.".format(oasisVersion, os.uname()[1]))
 			print("written in Python")
 			print("coded in Atom, TextWrangler, and Xcode")
@@ -638,7 +640,27 @@ while True:
 				print("success - change guest message")
 
 			elif setting == "setalias":
-				print("wip")
+				get_aliases = []
+				with open(ALIAS_FILE, "r") as af:
+					get_aliases = af.readlines()
+					af.close()
+				with open(ALIAS_FILE, "w") as af:
+					get_aliases.append("{}:{}".format(raw_input("Alias: "), raw_input("Command: ")))
+					af.write("\n".join(get_aliases))
+				print("success - add alias")
+				print("for changes to take effect, you must restart oasis")
+				while True:
+					restart = raw_input("restart now? (y/n) ")
+					if restart == "y":
+						clear()
+						print("to start - \"python main.py\"")
+						sys.exit(0)
+					elif restart == "n":
+						break
+					else:
+						print("invalid input")
+						time.sleep(1)
+						print("\n")
 
 			else:
 				print("error - invalid setting")
@@ -681,6 +703,9 @@ while True:
 					except Exception as e:
 						print("error - {}".format(e))
 				print("\n")
+
+		if command == "":
+			raise KeyboardInterrupt
 
 		if command in alias:
 			if mode == "guest":
@@ -800,7 +825,7 @@ while True:
 								print("P1 wins")
 								print("\n")
 
-		if command == "new_about":
+		if command == "about":
 			clear()
 			time.sleep(5)
 			print("o")
