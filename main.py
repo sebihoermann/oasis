@@ -20,7 +20,7 @@ import readline
 readline.parse_and_bind('set editing-mode vi')
 
 # Set to False to turn off animations
-ANIMATION = False
+ANIMATION = True
 
 now = datetime.datetime.now()
 year = now.year
@@ -52,7 +52,7 @@ def development_build():
 		sys.exit(1)
 	clear()
 
-development_build()
+#development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
@@ -62,8 +62,8 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 
 TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
 
-oasisVersion = "3.2"
-current_version = "oasis {} (1/21/16)".format(oasisVersion)
+oasisVersion = "3.2.1"
+current_version = "oasis {} (2/9/17)".format(oasisVersion)
 
 def read_data():
 	with open(NAME_FILE, "r") as nf:
