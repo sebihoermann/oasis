@@ -1,3 +1,0 @@
-calc:calculator
-dl:downloader
-c:clear

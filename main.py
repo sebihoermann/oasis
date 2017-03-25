@@ -19,7 +19,7 @@ import readline
 
 readline.parse_and_bind('set editing-mode vi')
 
-# Set to False to turn off animations
+# Set to False to turn off animation
 ANIMATION = True
 
 now = datetime.datetime.now()
@@ -33,13 +33,6 @@ except ImportError:
 	def clear():
 		os.system('clear')
 
-try:
-	from simplecrypt import encrypt, decrypt
-except ImportError:
-	clear()
-	print("missing - simple-crypt")
-	sys.exit(1)
-
 def development_build():
 	clear()
 	bootup = raw_input("development builds may contain bugs - boot? (y/n) ")
@@ -52,7 +45,7 @@ def development_build():
 		sys.exit(1)
 	clear()
 
-#development_build()
+development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
@@ -60,22 +53,46 @@ PASSWORD_FILE = 'data/profile/password.txt'
 GUEST_MESSAGE_FILE = 'data/settings/guest_message.txt'
 ALIAS_FILE = 'data/settings/aliases.txt'
 
-TARGET_URL = 'http://thelukeguy.github.io/oasis_update_check/'
+TARGET_URL = 'http://tinyurl.com/oasis-update-check'
 
-oasisVersion = "3.2.1"
+# When updating oasis, change oasisVersion and the date in current_version
+oasisVersion = "4.0-b1"
 current_version = "oasis {} (2/9/17)".format(oasisVersion)
 
+boot_type = ""
+
 def read_data():
+	time.sleep(1)
+	clear()
+	print("Reading data...")
+	print("Reading from name file...")
 	with open(NAME_FILE, "r") as nf:
 		name = ''.join(nf.readlines())
+	time.sleep(0.05)
+	clear()
+	print("Reading data...")
+	print("Reading from password file...")
 	with open(PASSWORD_FILE, "r") as pf:
 		password = ''.join(pf.readlines())
-		password = decrypt("oasis", password)
-		password = password.decode('utf8')
+		if boot_type == "reg":
+			time.sleep(0.05)
+			print("Decrypting password...")
+			password = decrypt("oasis", password)
+			password = password.decode('utf8')
+	time.sleep(0.05)
+	clear()
+	print("Reading data...")
+	print("Reading from guest message file...")
 	with open(GUEST_MESSAGE_FILE, "r") as gmf:
 		guest_message = ''.join(gmf.readlines())
+	time.sleep(0.05)
+	clear()
+	print("Reading data...")
+	print("Reading from alias file...")
 	with open(ALIAS_FILE, "r") as af:
 		aliases = af.readlines()
+		time.sleep(0.05)
+		print("Setting up aliases...")
 		alias = {}
 		for i in aliases:
 			current_alias = i.find(":")
@@ -83,10 +100,21 @@ def read_data():
 			current_command = i.find(":") + 1
 			current_command = i[current_command:]
 			alias[current_alias] = current_command
+		time.sleep(0.05)
+		clear()
+		print("Reading data...")
+		time.sleep(1)
 
 	return (name, password, guest_message, alias)
 
 clear()
+
+print("Select boot type:")
+print("\n")
+print("(reg) = Regular boot")
+print("(mob) = Pythonista (mobile) boot")
+print("\n")
+boot_type = raw_input("Boot type: ")
 
 def do_animation():
 	print("(                              )")
@@ -190,52 +218,54 @@ def do_animation():
 	print("o")
 	time.sleep(0.1)
 	clear()
-	time.sleep(3)
-	clear()
-	print("A")
-	time.sleep(0.1)
-	clear()
-	print("Au")
-	time.sleep(0.1)
-	clear()
-	print(" ur")
-	time.sleep(0.1)
-	clear()
-	print("  ro")
-	time.sleep(0.1)
-	clear()
-	print("   or")
-	time.sleep(0.1)
-	clear()
-	print("    ra")
-	time.sleep(0.1)
-	clear()
-	print("     a")
-	clear()
-	time.sleep(1)
-	print("A")
-	time.sleep(0.1)
-	clear()
-	print("Au")
-	time.sleep(0.1)
-	clear()
-	print("Aur")
-	time.sleep(0.1)
-	clear()
-	print("Auro")
-	time.sleep(0.1)
-	clear()
-	print("Auror")
-	time.sleep(0.1)
-	clear()
-	print("Aurora")
-	time.sleep(3)
 
 if ANIMATION:
 	do_animation()
 
-if not os.path.isfile(FIRST_BOOT_FILE):
+clear()
+if boot_type == "mob":
+	print("Pythonista (mobile) version")
+	time.sleep(3)
 	clear()
+elif boot_type == "reg":
+	if ANIMATION:
+		time.sleep(3)
+else:
+	print("Invalid boot type")
+	sys.exit(1)
+
+if boot_type == "reg":
+	try:
+		from simplecrypt import encrypt, decrypt
+	except ImportError:
+		clear()
+		print("missing - simple-crypt")
+		sys.exit(1)
+
+clear()
+if not os.path.isfile(FIRST_BOOT_FILE):
+	print("welcome to oasis")
+	time.sleep(1)
+	print("(press enter)")
+	raw_input()
+	clear()
+	time.sleep(1)
+	print("oasis is a project attempting to recreate an operating system in Python")
+	time.sleep(1)
+	print("(press enter)")
+	raw_input()
+	clear()
+	time.sleep(1)
+	print("for more information, you can check out the GitHub page - https://github.com/TheLukeGuy/oasis/")
+	time.sleep(1)
+	print("(press enter)")
+	raw_input()
+	clear()
+	time.sleep(1)
+	print("press enter to begin setup")
+	raw_input()
+	clear()
+	time.sleep(3)
 	open(FIRST_BOOT_FILE, 'a').close()
 	set_name_orig = raw_input("name - ")
 	clear()
@@ -258,8 +288,9 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 			print("passwords do not match")
 			time.sleep(3)
 		clear()
-	print("please wait - encoding password")
-	set_password = encrypt("oasis", set_password.encode('utf8'))
+	if boot_type == "reg":
+		print("please wait - encoding password")
+		set_password = encrypt("oasis", set_password.encode('utf8'))
 	pf = open(PASSWORD_FILE, 'w')
 	pf.write(set_password)
 	pf.close()
@@ -271,10 +302,14 @@ if not os.path.isfile(FIRST_BOOT_FILE):
 	print("Welcome to oasis, {}!".format(name))
 	mode = name
 else:
+	with open(FIRST_BOOT_FILE, "r") as fbf:
+		testhardreset = fbf.read()
+		if testhardreset == "hardreset":
+			clear()
+			print("to finish hard reset, type into the console \"python reset.py\"")
+			sys.exit(1)
 	print("Reading data...")
 	name, password, guest_message, alias = read_data()
-	clear()
-	print("Reading data...")
 	print("users - {}, guest".format(name))
 	mode = raw_input("name - ")
 	if mode == "guest":
@@ -304,9 +339,9 @@ else:
 		sys.exit(1)
 
 if mode == "guest":
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps", "about-legacy"]
 else:
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps", "about-legacy", "hardreset", "run"]
 
 if not mode == "guest":
 	for i in alias:
@@ -334,7 +369,6 @@ while True:
 				print("xmas - {} Christmas countdown".format(year))
 				print("convert - simple math conversions")
 				print("piglatin - a simple pig latin translator")
-				print("reload - reloads oasis")
 				print("stopwatch - a simple stopwatch")
 				print("rps - rock, paper, scissors")
 				raise KeyboardInterrupt
@@ -344,7 +378,7 @@ while True:
 			print("clear - clears console")
 			print("quit - quits oasis")
 			print("text - save text to a local file")
-			print("about - about your copy of oasis")
+			print("about - about oasis")
 			print("update - checks for oasis updates")
 			print("music - plays music you upload")
 			print("lock - locks oasis until you enter your password")
@@ -354,10 +388,11 @@ while True:
 			print("books - read downloaded e-books")
 			print("downloader - download files required by certain programs")
 			print("settings - configure oasis to your liking")
-			print("reload - reloads oasis")
 			print("python - execute Python code")
 			print("stopwatch - a simple stopwatch")
 			print("rps - rock, paper, scissors")
+			print("hardreset - reset every file")
+			print("run - run an oasis script")
 
 			for i in alias:
 				if not i.strip() == "":
@@ -411,7 +446,9 @@ while True:
 			if mode == "guest":
 				raise KeyboardInterrupt
 			print("files are saved to \"files\" folder")
+			print("put {0} to get a new line")
 			text = raw_input("text > ")
+			text = text.format("\n")
 			while True:
 				editorchoice = raw_input("save / discard file - ")
 				if editorchoice == "save":
@@ -438,7 +475,7 @@ while True:
 				for line in urllib2.urlopen(TARGET_URL):
 					version = line
 			except:
-				print("error - could not connect to \"http://thelukeguy.github.io/oasis_update_check/\"")
+				print("error - could not connect to \"http://tinyurl.com/oasis-update-check\"")
 				raise KeyboardInterrupt
 			if not version == current_version:
 				print("stable release available - {}".format(version))
@@ -605,30 +642,19 @@ while True:
 					pf.close()
 					clear()
 					print("success - change password")
-					time.sleep(3)
-					clear()
-					print("reloading oasis in 5")
-					time.sleep(1)
-					clear()
-					print("reloading oasis in 4")
-					time.sleep(1)
-					clear()
-					print("reloading oasis in 3")
-					time.sleep(1)
-					clear()
-					print("reloading oasis in 2")
-					time.sleep(1)
-					clear()
-					print("reloading oasis in 1")
-					time.sleep(1)
-					clear()
-					print("reloading oasis...")
-					time.sleep(3)
-					clear()
-					read_data()
-					clear()
-					print("success - reload")
-					raise KeyboardInterrupt
+					print("for changes to take effect, you must restart oasis")
+					while True:
+						restart = raw_input("restart now? (y/n) ")
+						if restart == "y":
+							clear()
+							print("to start - \"python main.py\"")
+							sys.exit(0)
+						elif restart == "n":
+							break
+						else:
+							print("invalid input")
+							time.sleep(1)
+							print("\n")
 
 				else:
 					print("error - incorrect password")
@@ -665,14 +691,6 @@ while True:
 			else:
 				print("error - invalid setting")
 				raise KeyboardInterrupt
-
-		if command == "reload":
-			clear()
-			print("reloading oasis - this may take a moment")
-			read_data()
-			name, password, guest_message, alias = read_data()
-			clear()
-			print("success - reload")
 
 		if command == "python":
 			if mode == "guest":
@@ -886,6 +904,71 @@ while True:
 			raw_input()
 			clear()
 			raise KeyboardInterrupt
+
+		if command == "hardreset":
+			if mode == "guest":
+				raise KeyboardInterrupt
+			confirm_reset = raw_input("confirm - hard reset (y/n) ")
+			if confirm_reset == "n":
+				raise KeyboardInterrupt
+			elif not confirm_reset in ["y", "n"]:
+				print("Invalid answer")
+				raise KeyboardInterrupt
+			confirm_reset2 = raw_input("all files will be deleted forever - confirm? (y/n) ")
+			if confirm_reset2 == "n":
+				raise KeyboardInterrupt
+			elif not confirm_reset2 in ["y", "n"]:
+				print("Invalid answer")
+				raise KeyboardInterrupt
+			print("resetting...")
+			os.system("rm -rf data/profile/*.txt")
+			open(NAME_FILE, "a").close()
+			open(PASSWORD_FILE, "a").close()
+			os.system("rm -rf data/settings/*.txt")
+			open(ALIAS_FILE, "a").close()
+			open(GUEST_MESSAGE_FILE, "a").close()
+			with open(GUEST_MESSAGE_FILE, "w") as gmf:
+				gmf.write("logged in as a guest")
+			with open(FIRST_BOOT_FILE, "w") as fbf:
+				fbf.write("hardreset")
+			fbf.close()
+			clear()
+			print("to finish hard reset, type into the console \"python reset.py\"")
+			sys.exit(0)
+
+		if command == "run":
+			clear()
+			script = raw_input("file location (files are stored in the files folder) - ")
+			clear()
+			if not os.path.isfile("files/{}".format(script)):
+				print("Invalid file")
+				raise KeyboardInterrupt
+			with open("files/{}".format(script), "r") as sf:
+					script_list = sf.readlines()
+			clear()
+			for i in script_list:
+				if i[0:3] == "say":
+					print(i[4:])
+				if i[0:4] == "wait":
+					time.sleep(int(i[5:]))
+				if i[0:5] == "clear":
+					clear()
+			print("\n")
+			print("[Script] End of script")
+
+		if command == "mcpi":
+			try:
+				from mcpi.minecraft import Minecraft
+				mc = Minecraft.create()
+			except:
+				print("Either you don't have Minecraft: Pi edition or you don't have a session currently running!")
+				raise KeyboardInterrupt
+			print("Oh, cool, you have Minecraft: Pi edition running!")
+			print("Here, have some TNT!")
+			mc.postToChat("Here, have some TNT!")
+			x, y, z = mc.player.getPos()
+			mc.player.setPos(x, y+5, z-10)
+			mc.setBlocks(x, y, z, x+5, y+5, z+5, 46, 1)
 
 		if not command in commands:
 			print("invalid command - {} - type \"help\" for a list of commands".format(command))
