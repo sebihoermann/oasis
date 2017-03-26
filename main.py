@@ -15,9 +15,6 @@ import afplay
 import webbrowser
 import time
 import datetime
-import readline
-
-readline.parse_and_bind('set editing-mode vi')
 
 # Set to False to turn off animation
 ANIMATION = True
@@ -26,10 +23,12 @@ now = datetime.datetime.now()
 year = now.year
 
 try:
+	boot_type = "mob"
 	import console
 	def clear():
 		console.clear()
 except ImportError:
+	boot_type = "reg"
 	def clear():
 		os.system('clear')
 
@@ -56,10 +55,8 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 TARGET_URL = 'http://tinyurl.com/oasis-update-check'
 
 # When updating oasis, change oasisVersion and the date in current_version
-oasisVersion = "4.0-b1"
-current_version = "oasis {} (2/9/17)".format(oasisVersion)
-
-boot_type = ""
+oasisVersion = "4.0-b2"
+current_version = "oasis {} (3/26/17)".format(oasisVersion)
 
 def read_data():
 	time.sleep(1)
@@ -68,30 +65,30 @@ def read_data():
 	print("Reading from name file...")
 	with open(NAME_FILE, "r") as nf:
 		name = ''.join(nf.readlines())
-	time.sleep(0.05)
+	time.sleep(0.01)
 	clear()
 	print("Reading data...")
 	print("Reading from password file...")
 	with open(PASSWORD_FILE, "r") as pf:
 		password = ''.join(pf.readlines())
 		if boot_type == "reg":
-			time.sleep(0.05)
+			time.sleep(0.01)
 			print("Decrypting password...")
 			password = decrypt("oasis", password)
 			password = password.decode('utf8')
-	time.sleep(0.05)
+	time.sleep(0.01)
 	clear()
 	print("Reading data...")
 	print("Reading from guest message file...")
 	with open(GUEST_MESSAGE_FILE, "r") as gmf:
 		guest_message = ''.join(gmf.readlines())
-	time.sleep(0.05)
+	time.sleep(0.01)
 	clear()
 	print("Reading data...")
 	print("Reading from alias file...")
 	with open(ALIAS_FILE, "r") as af:
 		aliases = af.readlines()
-		time.sleep(0.05)
+		time.sleep(0.01)
 		print("Setting up aliases...")
 		alias = {}
 		for i in aliases:
@@ -100,7 +97,7 @@ def read_data():
 			current_command = i.find(":") + 1
 			current_command = i[current_command:]
 			alias[current_alias] = current_command
-		time.sleep(0.05)
+		time.sleep(0.01)
 		clear()
 		print("Reading data...")
 		time.sleep(1)
@@ -109,114 +106,117 @@ def read_data():
 
 clear()
 
-print("Select boot type:")
-print("\n")
-print("(reg) = Regular boot")
-print("(mob) = Pythonista (mobile) boot")
-print("\n")
-boot_type = raw_input("Boot type: ")
+#print("Select boot type:")
+#print("\n")
+#print("(reg) = Regular boot")
+#print("(mob) = Pythonista (mobile) boot")
+#print("\n")
+#boot_type = raw_input("Boot type: ")
+
+if boot_type == "reg":
+	import readline
+	readline.parse_and_bind('set editing-mode vi')
 
 def do_animation():
 	print("(                              )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print(" (                            )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("  (                          )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("   (                        )")
-	time.sleep(0.1)
-	clear()
+	time.sleep(0.05)
 	print("    (                      )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("     (                    )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("      (                  )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("       (                )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("        (              )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("         (            )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("          (          )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("           (        )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("            (      )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("             (    )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("              (  )")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("               ()")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("               O")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("             O")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("           O")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("         O")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("       O")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("     o")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("   o")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print(" o")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("o")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("oa")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("oas")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("oasi")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("oasis")
 	time.sleep(3)
 	clear()
 	print("oasi")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("oas")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("oa")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 	print("o")
-	time.sleep(0.1)
+	time.sleep(0.05)
 	clear()
 
 if ANIMATION:
@@ -347,7 +347,8 @@ if not mode == "guest":
 	for i in alias:
 		commands.append(i)
 
-readline.clear_history()
+if boot_type == "reg":
+	readline.clear_history()
 
 runalias = False
 
