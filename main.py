@@ -10,14 +10,17 @@ import datetime
 import os
 import random
 import urllib2
+import urllib
 import subprocess
 import afplay
 import webbrowser
 import time
 import datetime
 
-# Set to False to turn off animation
+# Should oasis play the bootup animation?
 ANIMATION = True
+# What speed should the animation be (in seconds)?
+SPEED = 0.05
 
 now = datetime.datetime.now()
 year = now.year
@@ -34,14 +37,8 @@ except ImportError:
 
 def development_build():
 	clear()
-	bootup = raw_input("development builds may contain bugs - boot? (y/n) ")
-	if bootup == "n":
-		clear()
-		sys.exit(0)
-	elif bootup not in ["y", "n"]:
-		clear()
-		print("invalid answer")
-		sys.exit(1)
+	print("warning - this is a development version of oasis and may contain bugs")
+	time.sleep(3)
 	clear()
 
 development_build()
@@ -55,8 +52,8 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 TARGET_URL = 'http://tinyurl.com/oasis-update-check'
 
 # When updating oasis, change oasisVersion and the date in current_version
-oasisVersion = "4.0-b2"
-current_version = "oasis {} (3/26/17)".format(oasisVersion)
+oasisVersion = "4.0-b3"
+current_version = "oasis {} (3/28/17)".format(oasisVersion)
 
 def read_data():
 	time.sleep(1)
@@ -119,104 +116,104 @@ if boot_type == "reg":
 
 def do_animation():
 	print("(                              )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print(" (                            )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("  (                          )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("   (                        )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	print("    (                      )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("     (                    )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("      (                  )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("       (                )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("        (              )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("         (            )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("          (          )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("           (        )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("            (      )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("             (    )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("              (  )")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("               ()")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("               O")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("             O")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("           O")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("         O")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("       O")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("     o")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("   o")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print(" o")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("o")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("oa")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("oas")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("oasi")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("oasis")
 	time.sleep(3)
 	clear()
 	print("oasi")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("oas")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("oa")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 	print("o")
-	time.sleep(0.05)
+	time.sleep(SPEED)
 	clear()
 
 if ANIMATION:
@@ -339,9 +336,9 @@ else:
 		sys.exit(1)
 
 if mode == "guest":
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps", "about-legacy"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps", "about-legacy", "pycalc2", "version", "pycalc3", "guess"]
 else:
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps", "about-legacy", "hardreset", "run"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps", "about-legacy", "hardreset", "run", "pycalc2", "updater", "version", "pycalc3", "guess"]
 
 if not mode == "guest":
 	for i in alias:
@@ -372,6 +369,8 @@ while True:
 				print("piglatin - a simple pig latin translator")
 				print("stopwatch - a simple stopwatch")
 				print("rps - rock, paper, scissors")
+				print("version - current oasis version")
+				print("guess - number guessing game")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -394,12 +393,15 @@ while True:
 			print("rps - rock, paper, scissors")
 			print("hardreset - reset every file")
 			print("run - run an oasis script")
+			print("updater - update oasis")
+			print("version - current oasis version")
+			print("guess - number guessing game")
 
 			for i in alias:
 				if not i.strip() == "":
 					print("{} - alias for \"{}\"".format(i.strip(), alias[i.strip()].strip()))
 
-		if command == "calculator":
+		if command == "pycalc2":
 			print("pyCalc v2.0")
 			try:
 				v1 = int(raw_input("first value - "))
@@ -785,6 +787,7 @@ while True:
 						print("Invalid input")
 						pass
 					else:
+						print("\n")
 						cpu = random.choice(["rock", "paper", "scissors"])
 						print("computer chooses {}".format(cpu))
 						if rps == cpu:
@@ -820,6 +823,7 @@ while True:
 							print("Invalid input")
 							pass
 						else:
+							print("\n")
 							print("P1 picked {}".format(p1))
 							print("P2 picked {}".format(p2))
 							if p1 == p2:
@@ -846,7 +850,7 @@ while True:
 
 		if command == "about":
 			clear()
-			time.sleep(5)
+			time.sleep(2)
 			print("o")
 			time.sleep(0.1)
 			clear()
@@ -939,6 +943,7 @@ while True:
 
 		if command == "run":
 			clear()
+			print("oasis script beta 0.2")
 			script = raw_input("file location (files are stored in the files folder) - ")
 			clear()
 			if not os.path.isfile("files/{}".format(script)):
@@ -954,6 +959,8 @@ while True:
 					time.sleep(int(i[5:]))
 				if i[0:5] == "clear":
 					clear()
+				if i[0:5] == "enter":
+					raw_input(6:)
 			print("\n")
 			print("[Script] End of script")
 
@@ -970,6 +977,95 @@ while True:
 			x, y, z = mc.player.getPos()
 			mc.player.setPos(x, y+5, z-10)
 			mc.setBlocks(x, y, z, x+5, y+5, z+5, 46, 1)
+
+		if command == "calculator":
+			print("pyCalc3-wip")
+			print("\n")
+			while True:
+				calc = raw_input("Expression: ")
+				calc_list = list(calc)
+				check_valid = []
+				for i in calc_list:
+					if i in ["+", "-", "*", "/"]:
+						check_valid.append(i)
+				if len(check_valid) >= 1:
+					try:
+						print(eval(calc))
+					except SyntaxError:
+						print("Error")
+						pass
+				elif calc == "":
+					raise KeyboardInterrupt
+				elif calc == "pi":
+					print("3.141592653589793238462643")
+				else:
+					print("Error")
+					raise KeyboardInterrupt
+				print("\n")
+
+		if command == "updater":
+			if mode == "guest":
+				raise KeyboardInterrupt
+			print("The updater tool is in development and things could go wrong.")
+			print("Proceeding leaves you with the risk of file corruption.")
+			continue_update = raw_input("Are you sure you would like to proceed? (y/n) ")
+			if continue_update == "n":
+				raise KeyboardInterrupt
+			elif continue_update not in ["y", "n"]:
+				print("Invalid input")
+				raise KeyboardInterrupt
+			clear()
+			print("Preparing for update...")
+			print("Checking version...")
+			print(oasisVersion)
+			print("\n")
+			print("oasis will update main.py from version {} to latest source code release".format(oasisVersion))
+			raw_input("Press enter to update, ctrl+c to cancel ")
+			print("Creating file in root directory for updater.py to read...")
+			open("update.txt", "a").close()
+			print("Grabbing latest main.py file from GitHub...")
+			urllib.urlretrieve("https://raw.githubusercontent.com/TheLukeGuy/oasis/master/main.py", "new-main.py")
+			print("\n")
+			print("To finish update, run \"python updater.py\" from the terminal")
+			sys.exit(0)
+
+		if command == "version":
+			print(oasisVersion)
+
+		if command == "pycalc3":
+			print("pyCalc3-wip")
+			print("oasis version")
+			print("\n")
+			print("use \"calculator\" to run")
+
+		if command == "guess":
+			# Begin configuration
+			MIN_NUMBER = 1
+			MAX_NUMBER = 100
+			ATTEMPTS = 10
+			# End configuration
+			attempts = ATTEMPTS
+			number = random.randint(MIN_NUMBER, MAX_NUMBER)
+			print("I'm thinking of a number between {} and {}.".format(MIN_NUMBER, MAX_NUMBER))
+			print("You have {} attempts to guess the number.".format(ATTEMPTS))
+			print("\n")
+			while attempts > 0:
+				attempts -= 1
+				guess = raw_input("Guess {}/{}: ".format(ATTEMPTS - attempts, ATTEMPTS))
+				try:
+					if int(guess) > number:
+						print("Too high")
+					elif int(guess) < number:
+						print("Too low")
+					else:
+						print("\n")
+						print("You guessed the correct number in {} attempts.".format(ATTEMPTS - attempts))
+						raise KeyboardInterrupt
+				except ValueError:
+					print("Invalid input")
+					continue
+			print("\n")
+			print("Game over, the number was {}.".format(number))
 
 		if not command in commands:
 			print("invalid command - {} - type \"help\" for a list of commands".format(command))
