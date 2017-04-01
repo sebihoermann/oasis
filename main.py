@@ -52,8 +52,8 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 TARGET_URL = 'http://tinyurl.com/oasis-update-check'
 
 # When updating oasis, change oasisVersion and the date in current_version
-oasisVersion = "4.0-b3"
-current_version = "oasis {} (3/28/17)".format(oasisVersion)
+oasisVersion = "4.0-b4"
+current_version = "oasis {} (4/1/17) <- and no, this is not an April Fools' joke".format(oasisVersion)
 
 def read_data():
 	time.sleep(1)
@@ -336,7 +336,7 @@ else:
 		sys.exit(1)
 
 if mode == "guest":
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps", "about-legacy", "pycalc2", "version", "pycalc3", "guess"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps", "about-legacy", "pycalc2", "version", "pycalc3", "guess", "guest"]
 else:
 	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps", "about-legacy", "hardreset", "run", "pycalc2", "updater", "version", "pycalc3", "guess"]
 
@@ -616,6 +616,8 @@ while True:
 				print("success - download")
 
 		if command == "settings":
+			if mode == "guest":
+				raise KeyboardInterrupt
 			print("Settings:")
 			print("setpass - change your password to oasis")
 			print("guestmessage - change the guest login message")
@@ -917,13 +919,13 @@ while True:
 			if confirm_reset == "n":
 				raise KeyboardInterrupt
 			elif not confirm_reset in ["y", "n"]:
-				print("Invalid answer")
+				print("error - invalid answer")
 				raise KeyboardInterrupt
 			confirm_reset2 = raw_input("all files will be deleted forever - confirm? (y/n) ")
 			if confirm_reset2 == "n":
 				raise KeyboardInterrupt
 			elif not confirm_reset2 in ["y", "n"]:
-				print("Invalid answer")
+				print("error - invalid answer")
 				raise KeyboardInterrupt
 			print("resetting...")
 			os.system("rm -rf data/profile/*.txt")
@@ -947,7 +949,7 @@ while True:
 			script = raw_input("file location (files are stored in the files folder) - ")
 			clear()
 			if not os.path.isfile("files/{}".format(script)):
-				print("Invalid file")
+				print("error - invalid file")
 				raise KeyboardInterrupt
 			with open("files/{}".format(script), "r") as sf:
 					script_list = sf.readlines()
@@ -960,16 +962,16 @@ while True:
 				if i[0:5] == "clear":
 					clear()
 				if i[0:5] == "enter":
-					raw_input(6:)
+					raw_input(i[6:])
 			print("\n")
-			print("[Script] End of script")
+			print("[Script] - end of script")
 
 		if command == "mcpi":
 			try:
 				from mcpi.minecraft import Minecraft
 				mc = Minecraft.create()
 			except:
-				print("Either you don't have Minecraft: Pi edition or you don't have a session currently running!")
+				print("error - cannot find running MCPI session")
 				raise KeyboardInterrupt
 			print("Oh, cool, you have Minecraft: Pi edition running!")
 			print("Here, have some TNT!")
@@ -982,7 +984,7 @@ while True:
 			print("pyCalc3-wip")
 			print("\n")
 			while True:
-				calc = raw_input("Expression: ")
+				calc = raw_input("expression - ")
 				calc_list = list(calc)
 				check_valid = []
 				for i in calc_list:
@@ -992,41 +994,33 @@ while True:
 					try:
 						print(eval(calc))
 					except SyntaxError:
-						print("Error")
+						print("error")
 						pass
 				elif calc == "":
 					raise KeyboardInterrupt
 				elif calc == "pi":
 					print("3.141592653589793238462643")
 				else:
-					print("Error")
+					print("error")
 					raise KeyboardInterrupt
 				print("\n")
 
 		if command == "updater":
 			if mode == "guest":
 				raise KeyboardInterrupt
-			print("The updater tool is in development and things could go wrong.")
-			print("Proceeding leaves you with the risk of file corruption.")
-			continue_update = raw_input("Are you sure you would like to proceed? (y/n) ")
-			if continue_update == "n":
-				raise KeyboardInterrupt
-			elif continue_update not in ["y", "n"]:
-				print("Invalid input")
-				raise KeyboardInterrupt
 			clear()
-			print("Preparing for update...")
-			print("Checking version...")
+			print("preparing for update...")
+			print("checking version...")
 			print(oasisVersion)
 			print("\n")
 			print("oasis will update main.py from version {} to latest source code release".format(oasisVersion))
 			raw_input("Press enter to update, ctrl+c to cancel ")
-			print("Creating file in root directory for updater.py to read...")
+			print("creating file in root directory for updater.py to read...")
 			open("update.txt", "a").close()
-			print("Grabbing latest main.py file from GitHub...")
+			print("grabbing latest main.py file from GitHub...")
 			urllib.urlretrieve("https://raw.githubusercontent.com/TheLukeGuy/oasis/master/main.py", "new-main.py")
 			print("\n")
-			print("To finish update, run \"python updater.py\" from the terminal")
+			print("to finish update, run \"python updater.py\" from the terminal")
 			sys.exit(0)
 
 		if command == "version":
@@ -1046,26 +1040,31 @@ while True:
 			# End configuration
 			attempts = ATTEMPTS
 			number = random.randint(MIN_NUMBER, MAX_NUMBER)
-			print("I'm thinking of a number between {} and {}.".format(MIN_NUMBER, MAX_NUMBER))
-			print("You have {} attempts to guess the number.".format(ATTEMPTS))
+			print("number - between {} and {}".format(MIN_NUMBER, MAX_NUMBER))
+			print("attempts - {}".format(ATTEMPTS))
 			print("\n")
 			while attempts > 0:
 				attempts -= 1
-				guess = raw_input("Guess {}/{}: ".format(ATTEMPTS - attempts, ATTEMPTS))
+				guess = raw_input("guess {}/{} - ".format(ATTEMPTS - attempts, ATTEMPTS))
 				try:
 					if int(guess) > number:
-						print("Too high")
+						print("too high")
 					elif int(guess) < number:
-						print("Too low")
+						print("too low")
 					else:
 						print("\n")
-						print("You guessed the correct number in {} attempts.".format(ATTEMPTS - attempts))
+						print("number guessed in {} attempts".format(ATTEMPTS - attempts))
 						raise KeyboardInterrupt
 				except ValueError:
-					print("Invalid input")
+					print("error - invalid input")
 					continue
 			print("\n")
-			print("Game over, the number was {}.".format(number))
+			print("game over, the number was {}".format(number))
+
+		if command == "guest":
+			if not mode == "guest":
+				raise KeyboardInterrupt
+			print("True")
 
 		if not command in commands:
 			print("invalid command - {} - type \"help\" for a list of commands".format(command))
