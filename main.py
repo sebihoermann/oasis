@@ -52,8 +52,8 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 TARGET_URL = 'http://tinyurl.com/oasis-update-check'
 
 # When updating oasis, change oasisVersion and the date in current_version
-oasisVersion = "4.0-b4"
-current_version = "oasis {} (4/1/17) <- and no, this is not an April Fools' joke".format(oasisVersion)
+oasisVersion = "4.0-b5"
+current_version = "oasis {} (4/28/17)".format(oasisVersion)
 
 def read_data():
 	time.sleep(1)
@@ -336,9 +336,9 @@ else:
 		sys.exit(1)
 
 if mode == "guest":
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps", "about-legacy", "pycalc2", "version", "pycalc3", "guess", "guest"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "about", "update", "xmas", "convert", "piglatin", "reload", "python", "stopwatch", "rps", "about-legacy", "pycalc2", "version", "pycalc3", "guess", "guest", "cmds", "restart", "scramble"]
 else:
-	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps", "about-legacy", "hardreset", "run", "pycalc2", "updater", "version", "pycalc3", "guess"]
+	commands = ["help", "reset", "animation", "calculator", "clear", "quit", "text", "about", "update", "music", "lock", "xmas", "convert", "piglatin", "books", "downloader", "settings", "reload", "python", "stopwatch", "rps", "about-legacy", "hardreset", "run", "pycalc2", "updater", "version", "pycalc3", "guess", "cmds", "restart", "scramble"]
 
 if not mode == "guest":
 	for i in alias:
@@ -348,6 +348,7 @@ if boot_type == "reg":
 	readline.clear_history()
 
 runalias = False
+runscript = False
 
 while True:
 	try:
@@ -371,6 +372,8 @@ while True:
 				print("rps - rock, paper, scissors")
 				print("version - current oasis version")
 				print("guess - number guessing game")
+				print("restart - restarts oasis")
+				print("scramble - cube scrambler")
 				raise KeyboardInterrupt
 
 			print("Available commands:")
@@ -392,10 +395,12 @@ while True:
 			print("stopwatch - a simple stopwatch")
 			print("rps - rock, paper, scissors")
 			print("hardreset - reset every file")
-			print("run - run an oasis script")
+			print("run [file name] - run an oasis script")
 			print("updater - update oasis")
 			print("version - current oasis version")
 			print("guess - number guessing game")
+			print("restart - restarts oasis")
+			print("scramble - cube scrambler")
 
 			for i in alias:
 				if not i.strip() == "":
@@ -525,7 +530,7 @@ while True:
 			print("Christmas {} is in only {} {} and {} {}!".format(year, months, month_format, days, day_format))
 
 		if command == "convert":
-			print("pyCalc convert v0.1")
+			print("pyCalc convert v0.2")
 			print("---")
 			print("convert options - decimal, fraction, percent")
 			convert1 = raw_input("convert what - ")
@@ -545,6 +550,11 @@ while True:
 				decimal = raw_input("decimal - ")
 				answer = Fraction(float(decimal))
 				print("{} converted to a fraction is {}".format(decimal, answer))
+			elif convert1 == "fraction" and convert2 == "decimal":
+				numerator = raw_input("numerator - ")
+				denominator = raw_input("denominator - ")
+				answer = str(int(numerator) / int(denominator))
+				print("{}/{} converted to decimal is {}".format(numerator, denominator, answer))
 			else:
 				print("error - this conversion is work in progress")
 				raise KeyboardInterrupt
@@ -944,9 +954,13 @@ while True:
 			sys.exit(0)
 
 		if command == "run":
-			clear()
-			print("oasis script beta 0.2")
-			script = raw_input("file location (files are stored in the files folder) - ")
+			if runscript:
+				script = scripttorun
+				runscript = False
+			else:
+				clear()
+				print("oasis script beta 0.2")
+				script = raw_input("file location (files are stored in the files folder) - ")
 			clear()
 			if not os.path.isfile("files/{}".format(script)):
 				print("error - invalid file")
@@ -965,6 +979,13 @@ while True:
 					raw_input(i[6:])
 			print("\n")
 			print("[Script] - end of script")
+
+		if command[0:3] == "run" and len(command) > 3:
+			scripttorun = command[4:]
+			runalias = True
+			runscript = True
+			command = "run"
+			command = command.strip()
 
 		if command == "mcpi":
 			try:
@@ -1065,6 +1086,31 @@ while True:
 			if not mode == "guest":
 				raise KeyboardInterrupt
 			print("True")
+
+		if command == "cmds":
+			for i in commands:
+				print(i)
+
+		if command == "restart":
+			clear()
+			if mode == "guest":
+				print("Farewell until we meet again!")
+			print("Farewell until we meet again, {}!".format(name))
+			time.sleep(3)
+			clear()
+			time.sleep(2)
+			os.execv(sys.executable, ['python'] + sys.argv)
+
+		if command == "scramble":
+			notation = ["L", "R", "U", "D", "F", "B"]
+			special = ["'", "2", ""]
+			length = 30
+			scramble_list = []
+			while length > 0:
+				scramble_list.append("{}{}".format(random.choice(notation), random.choice(special)))
+				length -= 1
+			scramble = " ".join(scramble_list)
+			print(scramble)
 
 		if not command in commands:
 			print("invalid command - {} - type \"help\" for a list of commands".format(command))
