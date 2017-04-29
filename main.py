@@ -41,7 +41,7 @@ def development_build():
 	time.sleep(3)
 	clear()
 
-development_build()
+#development_build()
 
 FIRST_BOOT_FILE = 'data/extra/first_boot.txt'
 NAME_FILE = 'data/profile/name.txt'
@@ -52,8 +52,8 @@ ALIAS_FILE = 'data/settings/aliases.txt'
 TARGET_URL = 'http://tinyurl.com/oasis-update-check'
 
 # When updating oasis, change oasisVersion and the date in current_version
-oasisVersion = "4.0-b5"
-current_version = "oasis {} (4/28/17)".format(oasisVersion)
+oasisVersion = "4.0"
+current_version = "oasis {} (4/29/17)".format(oasisVersion)
 
 def read_data():
 	time.sleep(1)
